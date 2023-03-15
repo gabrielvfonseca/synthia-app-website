@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -13,8 +17,50 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@css/*": [
+        "./src/css/*"
+      ],
+      "@root/*": [
+        "./*"
+      ],
+      "@fonts/*": [
+        "./src/fonts/*"
+      ],
+      "@icons/*": [
+        "./src/icons/*"
+      ],
+      "@utilities/*": [
+        "./src/utilities/*"
+      ],
+      "@types": [
+        "./src/types/*"
+      ],
+      "@lib": [
+        "./src/lib/*"
+      ],
+      "@ui": [
+        "./src/ui/*"
+      ]
+    },
+    "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-white: ${theme('colors.white')};
+    --color-black: ${theme('colors.black')};
+
+    --color-main-background: ${theme('colors.background')};
+
+    --color-orange: ${theme('colors.orange')};
+
+    --color-highlight-1-gray: ${theme('colors.gray.1')};
+    --color-highlight-2-gray: ${theme('colors.gray.2')};
+    --color-highlight-3-gray: ${theme('colors.gray.3')};
+    --color-highlight-4-gray: ${theme('colors.gray.4')};
+    --color-highlight-5-gray: ${theme('colors.gray.5')};
+    --color-highlight-6-gray: ${theme('colors.gray.6')};
+    --color-highlight-7-gray: ${theme('colors.gray.7')};
+    --color-highlight-8-gray: ${theme('colors.gray.8')};
+
+    --color-highlight-1-red: ${theme('colors.red.default')};
+    --color-highlight-2-red: ${theme('colors.red.lighter')};
+    --color-highlight-3-red: ${theme('colors.red.light')};
+    --color-highlight-4-red: ${theme('colors.red.dark')};
+
+    --color-highlight-1-blue: ${theme('colors.blue.default')};
+    --color-highlight-2-blue: ${theme('colors.blue.lighter')};
+    --color-highlight-3-blue: ${theme('colors.blue.light')};
+    --color-highlight-4-blue: ${theme('colors.blue.dark')};
+
+    --color-highlight-1-yellow: ${theme('colors.yellow.default')};
+    --color-highlight-2-yellow: ${theme('colors.yellow.lighter')};
+    --color-highlight-3-yellow: ${theme('colors.yellow.light')};
+    --color-highlight-4-yellow: ${theme('colors.yellow.dark')};
+
+    --color-highlight-1-violet: ${theme('colors.violet.default')};
+    --color-highlight-2-violet: ${theme('colors.violet.lighter')};
+    --color-highlight-3-violet: ${theme('colors.violet.light')};
+    --color-highlight-4-violet: ${theme('colors.violet.dark')};
+
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+
+    --primary-glow: radial-gradient(
+        #EE5622,
+        #8a63d2,
+        #EE5622,
+        #0F94F3
+    );
+}
+
+
+@layer base {
+    header .menu-nav,
+    header .menu-social {
+        display: none;
+    };
+
+    @media only screen and (min-width: 768px) {
+        header .menu-nav {
+            display: block;
+        }
+    
+        header .menu-social {
+            display: block;
+        }
+    
+        header .aside-button {
+            display: none;
+        }
+    };
+
+    form::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        background: var(--primary-glow);
+        border-radius: 50%;
+        width: 100%;
+        height: 30%;
+        opacity: 0.5;
+        filter: blur(88px);
+        transform: translateZ(0);
+        left: 15%;
+        top: 6%;
+        margin-left: -240px;
+        margin-top: -90px;
+    };
+}
+
+
+
+
