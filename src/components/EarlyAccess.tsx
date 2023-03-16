@@ -30,7 +30,7 @@ const EarlyAcess: React.FC = () => {
             initial="initial"
             animate="animate"
             className="flex items-center justify-center h-screen px-4">
-            <div className="text-center space-y-6">
+            <div className="relative gradient text-center space-y-6">
                 <h2 className={classNames(
                     "max-w-xl mx-auto",
                     "text-4xl tracking-tight lg:text-5xl", 

@@ -53,26 +53,7 @@
 
 
 @layer base {
-    header .menu-nav,
-    header .menu-social {
-        display: none;
-    };
-
-    @media only screen and (min-width: 768px) {
-        header .menu-nav {
-            display: block;
-        }
-    
-        header .menu-social {
-            display: block;
-        }
-    
-        header .aside-button {
-            display: none;
-        }
-    };
-
-    form::before {
+    .gradient::before {
         content: '';
         position: absolute;
         z-index: -1;
@@ -83,11 +64,10 @@
         opacity: 0.5;
         filter: blur(88px);
         transform: translateZ(0);
-        left: 15%;
-        top: 6%;
-        margin-left: -240px;
+        left: 25%;
+        margin-left: -200px;
         margin-top: -90px;
-    };
+    }
 }
 
 

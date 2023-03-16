@@ -23,10 +23,10 @@ const badgeMotion = {
       }
     },
     whileHover: {
-        scale: 1.2,
+        scale: 1.04,
         transition: { duration: 0.3 },
     },
-    whileTap: { scale: 0.9 }
+    whileTap: { scale: 0.95 }
 };
 
 const heroMotion = {
@@ -98,6 +98,8 @@ const Badge: React.FC<{children: React.ReactNode}> = ({children}) => (
         variants={badgeMotion}
         initial="initial"
         animate="animate"
+        whileHover="whileHover"
+        whileTap="whileTap"
         className={classNames(
             "w-fit h-fit mx-auto", "rounded-full",
             "bg-gradient-to-r p-[1px] from-orange via-violet-light to-blue-default",

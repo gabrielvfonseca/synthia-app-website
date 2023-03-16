@@ -18,6 +18,8 @@
     "@next/bundle-analyzer": "^13.2.3",
     "@next/font": "^13.2.3",
     "@radix-ui/react-navigation-menu": "^1.1.1",
+    "@radix-ui/react-select": "^1.2.1",
+    "@types/ua-parser-js": "^0.7.36",
     "class-variance-authority": "^0.4.0",
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
@@ -32,6 +34,7 @@
     "react-dom": "^18.2.0",
     "tailwind-merge": "^1.10.0",
     "tailwindcss-animate": "^1.0.5",
+    "ua-parser-js": "^1.0.34",
     "vercel": "^28.16.13"
   },
   "devDependencies": {

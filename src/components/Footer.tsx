@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import classNames from "classnames";
 import { Icons } from "@icons/icons";
 
 // Components
-
+import ThemeSelector from "@components/ThemeSelector";
 
 // Framer Motion
 import { motion } from "framer-motion";
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                 "border border-solid border-gray-8",
         )}>
 
-            <nav className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10 space-y-6">
+            <nav className="grid grid-cols-1 gap-4 md:grid-cols-3 pt-10 space-y-6">
                 <div className="text-white fill-white">
                     <Image
                         src="assets/logo.svg" 
@@ -52,21 +52,17 @@ const Footer: React.FC = () => {
                     />
                 </div>
 
-                <Column title="Resources">
-                    <ColumnLink href="/">Documentation</ColumnLink>
-                </Column>
-
                 <Column title="Company">
                     <ColumnLink href="/">Home</ColumnLink>
-                    <ColumnLink href="/">Blog</ColumnLink>
-                    <ColumnLink href="/">Changelog</ColumnLink>
+                    <ColumnLink href="/blog">Blog</ColumnLink>
+                    <ColumnLink href="/changelog">Changelog</ColumnLink>
                     <ColumnLink href="/">Early Access</ColumnLink>
                 </Column>
 
                 <Column title="Legal">
-                    <ColumnLink href="/">Privacy Policy</ColumnLink>
-                    <ColumnLink href="/">Terms of Service</ColumnLink>
-                    <ColumnLink href="/">Cookie Preferences</ColumnLink>
+                    <ColumnLink href="/privacy">Privacy Policy</ColumnLink>
+                    <ColumnLink href="/terms">Terms of Service</ColumnLink>
+                    <ColumnLink href="/cookies">Cookie Preferences</ColumnLink>
                 </Column>
             </nav>
 
@@ -97,12 +93,7 @@ const Footer: React.FC = () => {
                     </Link>
                 </div>
 
-                <div className={classNames(
-                    "flex space-x-3 px-3 py-1", "items-center justify-center",
-                    "rounded-lg border border-solid border-gray-6"
-                )}>
-                    <span className="font-sans font-medium text-xs text-gray-2">Status: All systems normal.</span>
-                </div>
+                <SystemStatus />
             </div>
         </motion.footer>
     )
@@ -133,4 +124,13 @@ const ColumnLink: React.FC<{children: React.ReactNode, href: string}> = ({
     )}>
         {children}
     </Link>
+);
+
+const SystemStatus: React.FC = () => (
+    <div className={classNames(
+        "flex", "space-x-3 px-3 py-1", "items-center justify-center",
+        "rounded-lg border border-solid border-gray-6"
+    )}>
+        <span className="font-sans font-medium text-xs text-gray-2">Status: All systems normal.</span>
+    </div>
 );
