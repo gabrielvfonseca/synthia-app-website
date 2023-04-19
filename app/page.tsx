@@ -129,7 +129,7 @@ export default function Page(): JSX.Element {
           <div className="px-6 sm:px-8">
             <h1 className={cn(
               "gradient-heading", "mt-16 pb-4", 
-              "text-center text-6xl font-extrabold leading-[58px] tracking-[-0.6px] sm:text-7xl sm:leading-[74px]", 
+              "text-center text-5xl px-2 font-extrabold leading-[58px] tracking-[-0.6px] sm:text-7xl sm:px-0 sm:leading-[74px]", 
             )}>
               <Balancer>
                 Supercharged by syntax AI - millions 
