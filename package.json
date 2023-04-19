@@ -4,15 +4,12 @@
   "version": "0.0.1",
   "description": "",
   "email": "jg.fonseca@outlook.pt",
-  "url": "https://chat.gabfon.me/",
+  "url": "https://try-synthia.com/",
   "author": "Gabriel Fonseca <jg.fonseca@outlook.pt> (https://gabfon.me/)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
-    "analyze": "ANALYZE=true next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@markdoc/markdoc": "^0.2.2",
@@ -47,13 +44,11 @@
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "eslint": "8.35.0",
-    "eslint-config-next": "13.2.3",
     "eventsource-parser": "^0.1.0",
     "exponential-backoff": "^3.1.1",
     "fathom-client": "^3.5.0",
     "formidable": "^2.1.1",
     "formik": "^2.2.9",
-    "framer-motion": "^10.2.4",
     "gray-matter": "^4.0.3",
     "js-md5": "^0.7.3",
     "js-yaml": "^4.1.0",
