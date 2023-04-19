@@ -1,3 +1,6 @@
 module.exports = {
-    extends: ['./eslint-config'],
-  }
+    extends: [
+      './eslint-config',
+      'next/core-web-vitals'
+  ],
+}

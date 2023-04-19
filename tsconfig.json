@@ -37,20 +37,14 @@
         "./src/fonts/*"
       ],
       "@icons/*": [
-        "./src/icons/*"
+        "./src/components/icons/*"
       ],
-      "@utilities/*": [
-        "./src/utilities/*"
-      ],
-      "@types": [
-        "./src/types/*"
-      ],
-      "@lib": [
+      "@lib/*": [
         "./src/lib/*"
       ],
       "@ui": [
-        "./src/ui/*"
-      ]
+        "./src/components/ui/*"
+      ],
     },
     "strictNullChecks": true
   },

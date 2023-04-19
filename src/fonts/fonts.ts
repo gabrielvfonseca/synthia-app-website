@@ -2,28 +2,68 @@
 
 import localFont from 'next/font/local';
 
-export const AllienceFont = localFont({
+export const GTWalsheimPro = localFont({
   variable: '--font-sans',
   src: [
     {
-      path: './AllianceBold.otf',
-      weight: '800',
-      style: 'normal',
-    },
-    {
-      path: './AllianceMedium.otf',
-      weight: '500',
-      style: 'italic',
-    },
-    {
-      path: './AllianceRegular.otf',
+      path: './GTWalsheimPro-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './AllianceSemiBold.otf',
-      weight: '700',
+      path: './GTWalsheimPro-Black.ttf',
+      weight: '900',
+      style: 'normal',
+    },
+    {
+      path: './GTWalsheimPro-BlackOblique.ttf',
+      weight: '900',
       style: 'italic',
     },
+    {
+      path: './GTWalsheimPro-Bold.ttf',
+      weight: 'bold',
+      style: 'normal',
+    },
+    {
+      path: './GTWalsheimPro-BoldOblique.ttf',
+      weight: 'bold',
+      style: 'italic',
+    },
+    {
+      path: './GTWalsheimPro-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: './GTWalsheimPro-LightOblique.ttf',
+      weight: '300',
+      style: 'italic',
+    },
+    {
+      path: './GTWalsheimPro-Medium.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './GTWalsheimPro-MediumOblique.ttf',
+      weight: '600',
+      style: 'italic',
+    },
+    {
+      path: './GTWalsheimPro-RegularOblique.ttf',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: './GTWalsheimPro-UltraBold.ttf',
+      weight: '800',
+      style: 'normal',
+    },
+    {
+      path: './GTWalsheimPro-UltraBoldOblique.ttf',
+      weight: '800',
+      style: 'italic',
+    }
   ],
 });
