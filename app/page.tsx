@@ -131,10 +131,8 @@ export default function Page(): JSX.Element {
               "gradient-heading", "mt-16 pb-4", 
               "text-center text-5xl px-2 font-extrabold leading-[58px] tracking-[-0.6px] sm:text-7xl sm:px-0 sm:leading-[74px]", 
             )}>
-              <Balancer>
-                Supercharged by syntax AI - millions 
-                of answers at your fingertips!
-              </Balancer>
+              Supercharged by syntax AI - millions 
+              of answers at your fingertips!
             </h1>
             <p className={cn(
               "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700",
