@@ -1,6 +1,15 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { 
+  useEffect, 
+  useMemo, 
+  useRef, 
+  useState, 
+  MouseEvent 
+} from 'react';
+
+// Next
+import Link from 'next/link';
 
 // ClassNames
 import cn from 'classnames';
@@ -32,6 +41,53 @@ import demoData from "@root/src/examples/data";
 // Types
 import { EmailState } from '@root/src/types/types';
 
+export interface BoardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  title: string;
+}
+
+/* Framer Motion */
+import { 
+  motion, 
+  useMotionTemplate, 
+  useMotionValue,  
+} from "framer-motion";
+
+const animation = {
+  fadeIn: {
+    initial: { 
+      opacity: 0, 
+      scale: 0.94,
+    },
+    animate: { 
+        opacity: 1, 
+        scale: 1,
+    },
+    transition: { 
+        duration: 0.18,
+    },
+    exit: { 
+        opacity: 0, 
+        scale: 0.94,
+    },
+  },
+  whileInView: {
+    whileInView: {
+      y: 0,
+      opacity: 1,
+    },
+    initial: { 
+        y: 8,
+        opacity: 0
+    },
+    transition: {
+      duration: 0.20,
+      delay: 0.16
+    }
+  }
+};
+
+
 const useOnScreen = (ref: any) => {
   const [isIntersecting, setIntersecting] = useState(false);
 
@@ -55,6 +111,132 @@ const useOnScreen = (ref: any) => {
 
   return isIntersecting;
 };
+
+const Board: React.FC<BoardProps> = ({
+  children, title, ...props
+}) => {
+  let mouseX = useMotionValue(0);
+  let mouseY = useMotionValue(0);
+
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: MouseEvent) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      style={
+        {
+          "--dark-purple": "255 255 255",
+          "--light-purple": "238 86 34",
+
+          "--bg-color":
+            "linear-gradient(rgb(var(--dark-purple)), rgb(var(--dark-purple)))",
+          "--border-color": `linear-gradient(145deg,
+            rgb(var(--light-purple)) 0%,
+            rgb(var(--light-purple) / 0.3) 33.33%,
+            rgb(var(--light-purple) / 0.14) 66.67%,
+            rgb(var(--light-purple) / 0.1) 100%)
+          `,
+        } as React.CSSProperties
+      }
+      className={cn(
+        "border border-transparent rounded-xl",
+        "[background:padding-box_var(--bg-color),border-box_var(--border-color)]",
+        "md:col-span-2 shadow" 
+      )}
+      {...props}
+    >
+      <motion.div
+        className={cn(
+          "flex aspect-[2/1] flex-col",
+          "text-center justify-center",
+          "rounded-xl w-full h-full space-y-6",
+          "py-7 px-8"
+        )}
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              650px circle at ${mouseX}px ${mouseY}px,
+              rgba(238, 86, 34, 0.15),
+              transparent 80%
+            )
+          `,
+        }} 
+      >
+        <h3 className="text-3xl font-semibold font-sans text-black">
+            {title}
+        </h3>
+        <p className="text-lg font-medium leading-7 text-zinc-700">
+          <Balancer>
+            {children}
+          </Balancer>
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
+const Card: React.FC<{
+  title: string, children: React.ReactNode, badge?: string,
+}> = ({ title, children, badge }) => {
+  let mouseX = useMotionValue(0);
+  let mouseY = useMotionValue(0);
+
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: MouseEvent) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <motion.div
+      initial={animation.whileInView.initial}
+      transition={animation.whileInView.transition}
+      whileInView={animation.whileInView.whileInView}
+      className="group relative w-full rounded-2xl border border-black/20 bg-zinc-50 bg-opacity-30 px-6 py-10 shadow-md"
+      onMouseMove={handleMouseMove}
+    >
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              650px circle at ${mouseX}px ${mouseY}px,
+              rgba(238, 86, 34, 0.10),
+              transparent 80%
+            )
+          `,
+        }}
+      />
+      <div>
+        { badge && <Badge variant="gradient" className='mb-6'>{badge}</Badge> }
+        <div className="mt-2 flex items-center gap-x-2">
+          <span className="text-4xl font-bold tracking-tight text-black">
+            {title}
+          </span>
+        </div>
+        <p className="mt-6 text-base leading-7 text-zinc-700">
+          <Balancer>
+            {children}
+          </Balancer>
+        </p>
+      </div>
+    </motion.div>
+  )
+}
 
 export default function Page(): JSX.Element {
   const playgroundAnchorRef = useRef<HTMLDivElement | null>(null);
@@ -107,29 +289,22 @@ export default function Page(): JSX.Element {
       <main>
         <Pattern />
 
-        <div className="relative mx-auto min-h-screen max-w-screen-xl">
+        <div className='relative'>
           <Glow />
 
-          <div className="grid gap-8 items-start justify-center mt-36">
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-orange to-cinnabar rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-              <button className="relative px-4 py-2 bg-night rounded-lg leading-none flex items-center divide-x divide-isabelline/60">
-                <span className="flex items-center space-x-5">
-                  <span className="pr-6 text-platinium text-sm">
-                    Currently under development
-                  </span>
-                </span>
-                <span className="pl-6 text-sm text-platinium group-hover:text-rose transition duration-200">
-                  Not yet finished! {/*See what's new &rarr;*/}
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <div className="px-6 sm:px-8">
+          <motion.div 
+            initial={animation.fadeIn.initial}
+            animate={animation.fadeIn.animate}
+            exit={animation.fadeIn.exit}
+            transition={animation.fadeIn.transition}
+            className="px-10 sm:px-8 flex flex-col justify-center items-center min-h-screen"
+          >
             <h1 className={cn(
-              "gradient-heading", "mt-16 pb-4", 
-              "text-center text-5xl px-2 font-extrabold leading-[58px] tracking-[-0.6px] sm:text-7xl sm:px-0 sm:leading-[74px]", 
+              "gradient-heading", "pb-4 px-4 sm:px-0 mt-28",
+              "min-w-fit max-w-sm sm:max-w-md lg:w-1/3", 
+              "text-5xl sm:text-6xl lg:text-7xl",
+              "leading-[54px] sm:leading-[60px] lg:leading-[78px]",
+              "text-center font-extrabold tracking-[-0.6px]", 
             )}>
               Supercharged by syntax AI - millions 
               of answers at your fingertips!
@@ -141,7 +316,16 @@ export default function Page(): JSX.Element {
               to completing tasks, all through a simple chat interface.
             </p>
 
-            <div className="flex flex-row items-center justify-center gap-4 pt-8">
+            <motion.div 
+              initial={animation.fadeIn.initial}
+              animate={animation.fadeIn.animate}
+              exit={animation.fadeIn.exit}
+              transition={{ 
+                duration: 0.18,
+                delay: 0.8,
+              }}
+              className="flex flex-row items-center justify-center gap-4 pt-8"
+            >
               <Button
                 variant="cta"
                 buttonSize="lg"
@@ -149,81 +333,35 @@ export default function Page(): JSX.Element {
               >
                 Request Access
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className='card-glow'>
-            <div className='glow' />
-          </div>
-          <GridGlow />
+          <div className='relative'>
+            <GridGlow />
 
-          <div className='grid grid-cols-2 gap-4 mt-32 px-6 sm:px-8'>
-            <div className='card'>
-              <div className='space-y-5'>
-                <h3>
-                  <Balancer>
-                    Research project
-                  </Balancer>
-                </h3>
-                <p>
-                  <Balancer>
-                    We're a research project that leverages large language models like RoBERTa to push 
-                    the boundaries of what's possible in the field of natural language processing and
-                    beyond!     
-                  </Balancer>
-                </p>
-              </div>
-            </div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-32 px-6 sm:px-28'>
+              <Card title='Research project'>
+                This is a research project that leverages large language models like RoBERTa developed by 
+                <Link href="https://gabfon.me" className='text-orange'>{" Gabriel"}</Link>, that pushes the boundaries of what's possible 
+                in the field of natural language processing and beyond!
+              </Card>
 
-            <div className='card'>
-              <div className='space-y-5'>
-                <h3>
-                  <Balancer>
-                    Completly open-source 
-                  </Balancer>
-                </h3>
-                <p>
-                  <Balancer>
-                    we are proud to say that our model is completely open-source, which means 
-                    that anyone can access our code and make use of it for their own purposes. 
-                  </Balancer>
-                </p>
-              </div>
-            </div>
+              <Card title='Completly open-source'>
+                we are proud to say that our model is completely open-source, which means 
+                that anyone can access our code and make use of it for their own purposes. 
+              </Card>
 
-            <div className='card'>
-              <div className='space-y-5'>
-                <h3>
-                  <Balancer>
-                    Fine-tuned to handle everything!
-                  </Balancer>
-                </h3>
-                <p>
-                  <Balancer>
-                    Our model is versatile, reliable, and accurate. It has been extensively 
-                    tested and trained on 2.5TB of data, making it adaptable to new environments. 
-                    It is ideal for processing large amounts of data or complex computations.   
-                  </Balancer>         
-                </p>
-              </div>
-            </div>
+              <Card title='Fine-tuned to handle everything!'>
+                Our model is versatile, reliable, and accurate. It has been extensively 
+                tested and trained on 2.5TB of data, making it adaptable to new environments. 
+                It is ideal for processing large amounts of data or complex computations.  
+              </Card>
 
-            <div className='card'>
-              <Badge variant="gradient" className='mb-4'>Not Ready</Badge>
-              <div className='space-y-5'>
-                <h3>
-                  <Balancer>
-                    A direct line to our API
-                  </Balancer>
-                </h3>
-                <p>
-                  <Balancer>
-                    We're creating a direct line connection API to let users easily use our 
-                    model for their projects. It's an exciting new feature that will empower
-                    users to unlock our technology's full potential!
-                  </Balancer>
-                </p>
-              </div>
+              <Card title='A direct line to our API' badge='Soon!'>
+                We're creating a direct line connection API to let users easily use our 
+                model for their projects. It's an exciting new feature that will empower
+                users to unlock our technology's full potential!
+              </Card>
             </div>
           </div>
 
@@ -232,11 +370,11 @@ export default function Page(): JSX.Element {
 
             <h2 className={cn(
               "gradient-heading",
-              "mt-40 pb-4 px-6 sm:px-8", 
+              "mt-40 pb-4 px-6 sm:px-28", 
               "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
             )}>
               <Balancer>
-                This is just a demo example. But you get the idea.              
+                This is just sneak peek of what we can do            
               </Balancer>
             </h2>
 
@@ -246,7 +384,7 @@ export default function Page(): JSX.Element {
             <div 
               className={cn(
                 "relative bg-white", 
-                "p-8 h-[500px] w-full z-20", 
+                "py-8 px-20 h-[500px] w-full z-20", 
             )}>
               <Playground
                 onDark
@@ -261,7 +399,7 @@ export default function Page(): JSX.Element {
             </div>
           </div>
           
-          <div className='px-6 sm:px-8'>
+          <div className='px-6 sm:px-28'>
             <h2 className={cn(
               "gradient-heading", "mt-28 pb-4", 
               "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
@@ -272,24 +410,22 @@ export default function Page(): JSX.Element {
             </h2>
           
             <div className="relative mt-20 w-full overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="board-gradient md:col-span-2" id="why-the-model">
-                <div className='space-y-5'>
-                  <h3>
-                    <Balancer>
-                      Why?
-                    </Balancer>
-                  </h3>
-                  <p>
-                    As GPT-4 models merge, we at Synthia have developed our own language 
-                    model assistant using Facebook's RoBERTa. Synthia assists users in generating 
-                    more accurate and grammatically correct text to improve their writing skills and 
-                    optimize content for better communication. We are committed to providing top-notch 
-                    service and will continue to improve our services in the future. Enjoy using Synthia!
-                  </p>
-                </div>
-              </div>
 
-              <div className="board" id="cloud-model">
+              <Board title='Why?'>
+                As GPT-4 models merge, we at Synthia have developed our own language 
+                model assistant using Facebook's RoBERTa. Synthia assists users in generating 
+                more accurate and grammatically correct text to improve their writing skills and 
+                optimize content for better communication. We are committed to providing top-notch 
+                service and will continue to improve our services in the future. Enjoy using Synthia!
+              </Board>
+
+              <motion.div 
+                initial={animation.whileInView.initial}
+                transition={animation.whileInView.transition}
+                whileInView={animation.whileInView.whileInView}
+                className="board" 
+                id="cloud-model"
+              >
                 <div className='space-y-5'>
                   <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
                     <Icons.cloud className='w-6 h-6 text-neutral-800' />
@@ -304,10 +440,15 @@ export default function Page(): JSX.Element {
                     All resources and computing power is pushed from our dedicated servers.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="board" id="speed-and-optimization">
-                <div className='space-y-5'>
+              <motion.div 
+                initial={animation.whileInView.initial}
+                transition={animation.whileInView.transition}
+                whileInView={animation.whileInView.whileInView}
+                className="board" 
+                id="cloud-model"
+              >                <div className='space-y-5'>
                   <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
                     <Icons.gauge className='w-6 h-6 text-neutral-800' />
                   </div>
@@ -323,10 +464,15 @@ export default function Page(): JSX.Element {
                     large amounts of text.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="board" id="roberta-nlp">
-                <div className='space-y-5'>
+              <motion.div 
+                initial={animation.whileInView.initial}
+                transition={animation.whileInView.transition}
+                whileInView={animation.whileInView.whileInView}
+                className="board" 
+                id="cloud-model"
+              >                <div className='space-y-5'>
                   <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
                     <Icons.activity className='w-6 h-6 text-neutral-800' />
                   </div>
@@ -342,10 +488,15 @@ export default function Page(): JSX.Element {
                     over the platform.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="board" id="privacy-data">
-                <div className='space-y-5'>
+              <motion.div 
+                initial={animation.whileInView.initial}
+                transition={animation.whileInView.transition}
+                whileInView={animation.whileInView.whileInView}
+                className="board" 
+                id="cloud-model"
+              >                <div className='space-y-5'>
                   <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
                     <Icons.database className='w-6 h-6 text-neutral-800' />
                   </div>
@@ -359,11 +510,18 @@ export default function Page(): JSX.Element {
                     All conversational data is store securely on our servers only for model improvement.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div> 
           </div>
 
-          <div className='mt-40 px-6 sm:px-8' id="early-access">
+          <motion.div 
+            initial={animation.fadeIn.initial}
+            animate={animation.fadeIn.animate}
+            exit={animation.fadeIn.exit}
+            transition={animation.fadeIn.transition}
+            className='mt-40 px-6 sm:px-8' 
+            id="early-access"
+          >
             <div className="flex flex-col items-center">
               <h2 className={cn(
                 "gradient-heading", "pb-4", 
@@ -382,7 +540,16 @@ export default function Page(): JSX.Element {
                 </Balancer>
               </p>
 
-              <div className="mt-8 space-y-5">
+              <motion.div 
+                initial={animation.fadeIn.initial}
+                animate={animation.fadeIn.animate}
+                exit={animation.fadeIn.exit}
+                transition={{ 
+                  duration: 0.18,
+                  delay: 0.5,
+                }}
+                className="mt-8 space-y-5"
+              >
                 <Input 
                   type="text"
                   value={email.address}
@@ -393,16 +560,18 @@ export default function Page(): JSX.Element {
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"
                   placeholder="Enter email address" 
                 />
+
                 <Button 
                   variant='orange' 
                   className='w-full'
                   onClick={handleButtonPress}
                 >
-                  Sign me up
+                    <div>Sign me up</div>
                 </Button>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
+
         </div>
       </main>
       <Footer />

@@ -13,6 +13,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@components/ui/NavigationMenu";
 
 // ClassNames
@@ -25,6 +26,10 @@ import Button from '@components/ui/Button';
 // Lib
 import { useToast } from '@lib/hooks/use-toast';
 
+// Framer Motion
+import { AnimatePresence, motion } from 'framer-motion';
+
+// Types
 type Component = { title: string; description: string };
 type MobileComponent = { title: string; href: string, description: string };
 
@@ -105,9 +110,10 @@ export const Header: React.FC = () => {
   const { toast } = useToast();
 
   return (
-    <header className={cn(
-      "w-full z-50 fixed top-0 transition",
-      hasScrolled && 'backdrop-blur-2xl shadow-sm border-b border-b-solid border-b-black border-opacity-10 transition-all duration-300'
+    <header
+      className={cn(
+        "w-full z-50 fixed top-0 transition",
+        hasScrolled && 'backdrop-blur-2xl shadow-sm border-b border-b-solid border-b-black border-opacity-10 transition-all duration-300'
     )}>
       <div className="flex flex-row justify-between px-8 py-5">
         
@@ -117,7 +123,19 @@ export const Header: React.FC = () => {
           </Link>
         </div>
 
-        <div className='hidden sm:block'>
+        <motion.div 
+          initial={{
+            opacity: 0
+          }}
+          animate={{
+            opacity: 1
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.4,
+          }}
+          className='hidden sm:block'
+        >
           <NavigationMenu dir='ltr'>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -175,21 +193,21 @@ export const Header: React.FC = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <div 
+                <Link href="/docs" legacyBehavior passHref              
                   onClick={() =>
-                    toast({
-                      title: "Sorry, not available",
-                      description: "You don't have access to this area yet",
-                    })
-                  }
-                  className='hover:text-orange delay-150 cursor-pointer transition-colors'
-                >
-                  Login
-                </div>
+                      toast({
+                        title: "Sorry, not available",
+                        description: "You don't have access to this area yet",
+                      })
+                    }>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Documentation
+                  </NavigationMenuLink>
+                </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </motion.div>
 
         <div className='hidden sm:flex items-center justify-center'>
           <div className='flex flex-row items-center gap-4'>
@@ -209,11 +227,11 @@ export const Header: React.FC = () => {
               </>
             }
             <Link href="https://github.com/gabrielvfonseca/synthia-landing-website" target='_blank'>
-              <Icons.gitHub className='h-6 w-6 text-night dark:text-platinium hover:text-cinnabar/90 transition-colors' />
+              <Icons.gitHub className='h-6 w-6 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
             </Link>
 
             <Link href="https://twitter.com/gabfon_" target='_blank'>
-              <Icons.twitter className='h-6 w-6 text-night dark:text-platinium hover:text-cinnabar/90 transition-colors' />
+              <Icons.twitter className='h-6 w-6 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
             </Link>
           </div>
         </div>
@@ -232,71 +250,110 @@ export const Header: React.FC = () => {
             }
           </button>
 
-          {open && <div className={cn(
-            'w-full z-40 fixed top-0 left-0 h-screen',
-            'backdrop-blur-2xl transition-all duration-500',
-            'animate-slide-up'
-          )}>
-              <nav className='flex flex-col space-y-4 px-10 mt-20'>
-                {
-                  mobileComponents.map((item: MobileComponent, index: number) => (
-                    <div 
-                      key={index}
-                      className={cn(
-                        'py-4',
-                        'border-b border-b-solid border-b-black border-opacity-10'
-                      )}
-                    >
-                      <div
-                        onClick={() => {
-                          isOpen(!open)
-                          window.location.href = item.href;
-                        }}
-                        className={cn(
-                          'flex flex-row flex-grow',
-                          'text-lg font-sans font-semibold',
-                          'text-black hover:text-orange transition-colors duration-150 transform'
-                        )}
-                      >
-                        {item.title}
-                      </div>
-                    </div>
-                  ))
-                }
-
-                <div className='pt-10 flex flex-row justify-between'>
-                    <div className='flex flex-row gap-4 items-center'>
-                      <Link href="https://github.com/gabrielvfonseca/synthia-landing-website" target='_blank'>
-                        <Icons.gitHub className='h-8 w-8 text-night dark:text-platinium hover:text-cinnabar/90 transition-colors' />
-                      </Link>
-
-                      <Link href="https://twitter.com/gabfon_" target='_blank'>
-                        <Icons.twitter className='h-8 w-8 text-night dark:text-platinium hover:text-cinnabar/90 transition-colors' />
-                      </Link>
-                    </div>
-
+          <AnimatePresence>
+            {open && <motion.div 
+              initial={{
+                opacity: 0,
+                scale: 0.94,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                duration: 0.1,
+                delay: 0.2,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.94,
+              }}
+              className={cn(
+                'w-full z-40 fixed top-0 left-0 h-screen',
+                'backdrop-blur-2xl',
+            )}>
+                <nav className='flex flex-col space-y-10 px-10 mt-20'>
                   {
-                    !session && <div className='flex flex-row items-center gap-4'>
-                      <Button 
-                        variant='cta' 
-                        buttonSize='lg'
+                    mobileComponents.map((item: MobileComponent, index: number) => (
+                      <div 
+                        key={index}
+                        className='space-y-2 cursor-pointer'
                       >
-                        Login
-                      </Button>
-                      <Button 
-                        buttonSize='lg' 
-                        className={cn(
-                          'border-black border-opacity-60',
-                          'hover:bg-black hover:bg-opacity-10 transition-colors'
-                        )}>
-                          Sign up
-                        </Button>
-                    </div> 
+                        <div
+                          onClick={() => {
+                            isOpen(!open)
+                            window.location.href = item.href;
+                          }}
+                          className={cn(
+                            'flex flex-row flex-grow',
+                            'text-lg font-sans font-semibold',
+                            'text-black hover:text-orange transition-colors duration-150 transform'
+                          )}
+                        >
+                          {item.title}
+                        </div>
+                        <motion.div 
+                            initial={{ 
+                                opacity: 0,
+                                width: "0%", 
+                                x: 0 
+                            }}
+                            animate={{ 
+                                opacity: 1,
+                                width: "100%", 
+                                x: 0 
+                            }}
+                            exit={{ 
+                                opacity: 0,
+                                width: "0%", 
+                                x: 0 
+                            }}
+                            transition={{ 
+                                duration: 0.6,
+                                delay: 0.36,
+                                origin: 1
+                            }}
+                            className={cn(
+                              'border-b border-b-solid border-b-black border-opacity-10'
+                        )} />
+                      </div>
+                    ))
                   }
-                </div>
-              </nav>
-            </div>
-          }
+
+                  <div className='pt-10 flex flex-row justify-between'>
+                      <div className='flex flex-row gap-4 items-center'>
+                        <Link href="https://github.com/gabrielvfonseca/synthia-landing-website" target='_blank'>
+                          <Icons.gitHub className='h-7 w-7 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
+                        </Link>
+
+                        <Link href="https://twitter.com/gabfon_" target='_blank'>
+                          <Icons.twitter className='h-7 w-7 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
+                        </Link>
+                      </div>
+
+                    {
+                      !session && <div className='flex flex-row items-center gap-4'>
+                        <Button 
+                          variant='cta' 
+                          buttonSize='lg'
+                        >
+                          Login
+                        </Button>
+                        <Button 
+                          buttonSize='lg' 
+                          className={cn(
+                            'border-black border-opacity-60',
+                            'hover:bg-black hover:bg-opacity-10 transition-colors'
+                          )}>
+                            Sign up
+                          </Button>
+                      </div> 
+                    }
+                  </div>
+                </nav>
+              </motion.div>
+            }
+          </AnimatePresence>
         </div>
       </div>
     </header>

@@ -14,8 +14,8 @@ export const TopGlow = () => (
 )
 
 export const GridGlow = () => (
-  <>
+  <div>
     <div className="glowGrid-r" />
     <div className="glowGrid-l" />
-  </>
+  </div>
   )

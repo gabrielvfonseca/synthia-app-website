@@ -11,6 +11,10 @@ import { Segment } from "@components/ui/Segment";
 // Icons
 import { Icons } from "@components/icons/icons";
 
+// Framer Motion
+import { motion } from "framer-motion";
+
+// Types
 export type NavModel = 'system' | 'light' | 'dark';
 
 export const modelTheme: Record<NavModel, any> = {
@@ -28,7 +32,18 @@ export const Footer: React.FC = () => {
     ];
 
     return (
-      <footer className="mt-48 grid grid-cols-1 gap-8 border-t border-black border-opacity-10 px-6 pt-12 pb-20 sm:grid-cols-3 sm:py-12 sm:px-8">
+      <motion.footer 
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1
+        }}
+        transition={{
+          duration: 0.4
+        }}
+        className="mt-48 grid grid-cols-1 gap-8 border-t border-black border-opacity-10 px-6 pt-12 pb-20 sm:grid-cols-3 sm:py-12 sm:px-8"
+      >
         <div className='flex flex-row items-center justify-center md:justify-start text-center text-black/90'>
           <Icons.logoLarge className='w-28 h-8' />
         </div>
@@ -52,7 +67,7 @@ export const Footer: React.FC = () => {
             }
           />
         </div>
-      </footer>
+      </motion.footer>
     )
 }
 

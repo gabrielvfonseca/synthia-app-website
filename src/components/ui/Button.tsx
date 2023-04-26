@@ -70,11 +70,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className,
           'relative flex select-none flex-row items-center justify-center gap-3 whitespace-nowrap rounded-lg border font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 disabled:cursor-not-allowed',
           {
-            'bg-transparent border-[1px] border-solid border-cinnabar text-neutral-900 hover:bg-orange/50 disabled:bg-neutral-900 disabled:text-neutral-500 hover:disabled:bg-neutral-900':
+            'border-[1px] border-solid border-orange/90 text-neutral-900 bg-orange/10 hover:bg-orange/90 disabled:bg-neutral-900 disabled:text-neutral-500 hover:disabled:bg-neutral-900':
               variant === 'cta',
             'button-glow-color border-transparent bg-cinnabar/90 text-white':
               variant === 'glow',
-            'border-transparent bg-orange text-white hover:bg-cinnabar disabled:bg-neutral-900 disabled:text-neutral-500 hover:disabled:bg-neutral-900':
+            'border-[1px] border-solid border-orange/90 text-neutral-100 hover:text-neutral-800 hover:bg-orange/10 bg-orange/90 disabled:bg-neutral-900 disabled:text-neutral-500 hover:disabled:bg-neutral-900':
               variant === 'orange',
             'border-transparent bg-rose-800 text-white hover:bg-rose-900':
               variant === 'danger',
