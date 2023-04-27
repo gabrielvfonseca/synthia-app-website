@@ -145,21 +145,25 @@ export const Header: React.FC = () => {
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-white/40 backdrop-blur-lg p-6 no-underline outline-none focus:shadow-md"
+                          className={cn(
+                            "flex h-full w-full select-none flex-col justify-end rounded-md",
+                            "bg-white/40 dark:bg-cinnabar/20 backdrop-blur-lg",
+                            "p-6 no-underline outline-none focus:shadow-md"
+                          )}
                           href="/"
                         >
                           <div className='flex mb-2 space-x-2 flex-row justify-start text-center'>
                             <Icons.logo className={cn(
                               "h-4 w-4 mt-1.5",
                               "text-center justify-center flex",
-                              "text-black text-opacity-80"
+                              "text-black dark:text-white text-opacity-80"
                           )} />
 
-                            <span className="first-letter:text-lg font-medium text-black">
+                            <span className="first-letter:text-lg font-medium text-black dark:text-white">
                               Synthia
                             </span>
                           </div>
-                          <p className="text-sm leading-tight text-black/90">
+                          <p className="text-sm leading-tight text-black/90 dark:text-white/90">
                             Syntax Inteligent Assistant in the palm of your hands
                           </p>
                         </a>
@@ -371,13 +375,14 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/50 focus:bg-white/50",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+            "hover:bg-white/50 focus:bg-white/50 dark:hover:bg-black/50 dark:focus:bg-black/60",
             className
           )}
           {...props}
         >
-          <div className="text-sm font-semibold leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-black/90">
+          <div className="text-sm font-semibold leading-none dark:text-white">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-black/90 dark:text-white/70">
             {children}
           </p>
         </a>

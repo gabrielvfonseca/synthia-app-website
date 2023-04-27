@@ -163,7 +163,7 @@ export const Playground: FC<PlaygroundProps> = ({
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Try asking me anything..."
             className={cn(
-              'w-full appearance-none rounded-md border-0 bg-transparent px-0 pt-1 pb-2 text-black/90 outline-none transition duration-500 placeholder:text-neutral-900 focus:outline-none focus:ring-0',
+              'w-full appearance-none rounded-md border-0 bg-transparent px-0 pt-1 pb-2 text-black/90 dark:text-white outline-none transition duration-500 placeholder:text-neutral-900 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-0',
               {
                 'pointer-events-none': isDemoMode && playing,
               },
@@ -226,7 +226,7 @@ export const Playground: FC<PlaygroundProps> = ({
                 {references.map((r) => (
                   <div
                     key={`reference-${r}`}
-                    className="cursor-default rounded-md border border-orange px-2 py-1 text-sm font-medium text-eerie hover:bg-orange/50 hover:border-cinnabar hover:text-opacity-90 duration-150 transition-colors"
+                    className="cursor-default rounded-md border border-orange px-2 py-1 text-sm font-medium text-eerie dark:text-neutral-500 hover:bg-orange/50 hover:border-cinnabar hover:text-opacity-90 duration-150 transition-colors"
                   >
                     {r}
                   </div>

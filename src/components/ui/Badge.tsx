@@ -36,7 +36,7 @@ function Badge({ className, variant, ...props }: BadgeProps) {
             variant !== 'gradient' ?
             <div className={cn(badgeVariants({ variant }), className)} {...props} />
             : <div className={cn("badge-gradient", className)}>
-                <div className={cn("flex h-fit px-2.5 rounded-full py-0.5 text-xs font-semibold w-full items-center justify-center bg-white bg-opacity-90 back")} {...props} />
+                <div className={cn("flex h-fit px-2.5 rounded-full py-0.5 text-xs font-semibold w-full items-center justify-center bg-white dark:bg-zinc-800 dark:text-white/90 bg-opacity-90 back")} {...props} />
             </div>
         }
     </>

@@ -149,7 +149,7 @@ const Board: React.FC<BoardProps> = ({
       }
       className={cn(
         "border border-transparent rounded-xl",
-        "[background:padding-box_var(--bg-color),border-box_var(--border-color)]",
+        "[background:padding-box_var(--bg-color),border-box_var(--border-color)] dark:bg-none",
         "md:col-span-2 shadow" 
       )}
       {...props}
@@ -171,10 +171,10 @@ const Board: React.FC<BoardProps> = ({
           `,
         }} 
       >
-        <h3 className="text-3xl font-semibold font-sans text-black">
+        <h3 className="text-3xl font-semibold font-sans text-black dark:text-white">
             {title}
         </h3>
-        <p className="text-lg font-medium leading-7 text-zinc-700">
+        <p className="text-lg font-medium leading-7 text-zinc-700 dark:text-zinc-200">
           <Balancer>
             {children}
           </Balancer>
@@ -206,7 +206,13 @@ const Card: React.FC<{
       initial={animation.whileInView.initial}
       transition={animation.whileInView.transition}
       whileInView={animation.whileInView.whileInView}
-      className="group relative w-full rounded-2xl border border-black/20 bg-zinc-50 bg-opacity-30 px-6 py-10 shadow-md"
+      className={cn(
+        "group relative w-full rounded-2xl",
+        "border border-black/20 dark:border-neutral-700 dark:hover:border-orange/40 bg-zinc-50 dark:bg-neutral-900",
+        "bg-opacity-30 px-6 py-10",
+        "shadow-md dark:shadow-lg",
+        "transition-colors",
+      )}
       onMouseMove={handleMouseMove}
     >
       <motion.div
@@ -215,8 +221,8 @@ const Card: React.FC<{
           background: useMotionTemplate`
             radial-gradient(
               650px circle at ${mouseX}px ${mouseY}px,
-              rgba(238, 86, 34, 0.10),
-              transparent 80%
+              rgba(238, 86, 34, 0.15),
+              transparent 90%
             )
           `,
         }}
@@ -224,11 +230,11 @@ const Card: React.FC<{
       <div>
         { badge && <Badge variant="gradient" className='mb-6'>{badge}</Badge> }
         <div className="mt-2 flex items-center gap-x-2">
-          <span className="text-4xl font-bold tracking-tight text-black">
+          <span className="text-4xl font-bold tracking-tight text-black dark:text-white">
             {title}
           </span>
         </div>
-        <p className="mt-6 text-base leading-7 text-zinc-700">
+        <p className="mt-6 text-base leading-7 text-zinc-700 dark:text-zinc-400">
           <Balancer>
             {children}
           </Balancer>
@@ -310,7 +316,7 @@ export default function Page(): JSX.Element {
               of answers at your fingertips!
             </h1>
             <p className={cn(
-              "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700",
+              "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700 dark:text-neutral-300",
             )}>
               Synthia can help you with anything from finding information
               to completing tasks, all through a simple chat interface.
@@ -370,7 +376,7 @@ export default function Page(): JSX.Element {
 
             <h2 className={cn(
               "gradient-heading",
-              "mt-40 pb-4 px-6 sm:px-28", 
+              "mt-40 pb-4 px-4 md:px-28", 
               "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
             )}>
               <Balancer>
@@ -383,7 +389,8 @@ export default function Page(): JSX.Element {
           <div className="mt-10">
             <div 
               className={cn(
-                "relative bg-white", 
+                "relative bg-white dark:bg-night", 
+                "border-t border-t-black/20 dark:border-t-neutral-700/60",
                 "py-8 px-20 h-[500px] w-full z-20", 
             )}>
               <Playground
@@ -427,8 +434,8 @@ export default function Page(): JSX.Element {
                 id="cloud-model"
               >
                 <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
-                    <Icons.cloud className='w-6 h-6 text-neutral-800' />
+                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                    <Icons.cloud className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
                   </div>
                   <h3>
                     <Balancer>
@@ -448,9 +455,10 @@ export default function Page(): JSX.Element {
                 whileInView={animation.whileInView.whileInView}
                 className="board" 
                 id="cloud-model"
-              >                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
-                    <Icons.gauge className='w-6 h-6 text-neutral-800' />
+              >                
+                <div className='space-y-5'>
+                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                    <Icons.gauge className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
                   </div>
                   <h3>
                     <Balancer>
@@ -472,9 +480,10 @@ export default function Page(): JSX.Element {
                 whileInView={animation.whileInView.whileInView}
                 className="board" 
                 id="cloud-model"
-              >                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
-                    <Icons.activity className='w-6 h-6 text-neutral-800' />
+              >                
+                <div className='space-y-5'>
+                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                    <Icons.activity className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
                   </div>
                   <h3>
                     <Balancer>
@@ -496,9 +505,10 @@ export default function Page(): JSX.Element {
                 whileInView={animation.whileInView.whileInView}
                 className="board" 
                 id="cloud-model"
-              >                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 rounded-xl w-fit h-fit'>
-                    <Icons.database className='w-6 h-6 text-neutral-800' />
+              >                
+                <div className='space-y-5'>
+                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                    <Icons.database className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
                   </div>
                   <h3>
                     <Balancer>
@@ -519,7 +529,7 @@ export default function Page(): JSX.Element {
             animate={animation.fadeIn.animate}
             exit={animation.fadeIn.exit}
             transition={animation.fadeIn.transition}
-            className='mt-40 px-6 sm:px-8' 
+            className='my-40 px-6 sm:px-8' 
             id="early-access"
           >
             <div className="flex flex-col items-center">

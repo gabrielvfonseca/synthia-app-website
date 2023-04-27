@@ -75,9 +75,9 @@ export default function PushTop () {
                     'fixed bottom-6 right-10 z-40',
                     'cursor-pointer text-center',
                     'p-2.5', 'text-white',
-                    'bg-eerie hover:bg-night',
+                    'bg-eerie hover:bg-night dark:hover:bg-neutral-800',
                     'border border-solid border-platinium border-opacity-40',
-                    'rounded-full shadow-lg',
+                    'rounded-full shadow-lg dark:shadow-xl dark:shadow-orange/20',
                     'transition-colors ease-in-out delay-100'
                 )}
                 initial={animation.initial}
