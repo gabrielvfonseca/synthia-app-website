@@ -24,7 +24,14 @@ import Input from '@components/ui/Input';
 import { Badge } from '@components/ui/Badge';
 
 import { ToastAction } from "@components/ui/Toast";
-
+import {
+  Toast,
+  ToastClose,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from "@components/ui/Toast";
 import { Playground } from '@components/files/Playground';
 
 // Icons
@@ -35,7 +42,7 @@ import Balancer from 'react-wrap-balancer';
 import { useToast } from "@lib/hooks/use-toast";
 
 // Demo
-import demoData from "@root/src/examples/data";
+import prompt from "@lib/prompt";
 
 // Types
 import { EmailState } from '@root/src/types/types';
@@ -181,6 +188,30 @@ const Board: React.FC<BoardProps> = ({
       </motion.div>
     </div>
   );
+}
+
+export function Toaster() {
+  const { toasts } = useToast();
+
+  return (
+    <ToastProvider>
+      {toasts.map(function ({ id, title, description, action, ...props }) {
+        return (
+          <Toast key={id} {...props}>
+            <div className="grid gap-1">
+              {title && <ToastTitle>{title}</ToastTitle>}
+              {description && (
+                <ToastDescription>{description}</ToastDescription>
+              )}
+            </div>
+            {action}
+            <ToastClose />
+          </Toast>
+        )
+      })}
+      <ToastViewport />
+    </ToastProvider>
+  )
 }
 
 const Card: React.FC<{
@@ -394,7 +425,7 @@ export default function Page(): JSX.Element {
               onDark
               isDemoMode
               playing={autoplayPlayground}
-              demo={demoData}
+              demo={prompt}
             />
             <div
               ref={playgroundAnchorRef}

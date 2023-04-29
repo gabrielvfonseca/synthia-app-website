@@ -62,5 +62,5 @@ export type ProjectChecksums = Record<FileData['path'], string>;
 
 
 
-export type DemoData = { prompt: string, res: string, references: string[] }[];
+export type PromptDemo = { prompt: string, res: string, references: string[] }[];
 export type EmailState = {address: string, pattern: RegExp, insert: string[]};

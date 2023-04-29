@@ -17,7 +17,7 @@ import cn from 'classnames';
 import { timeout } from '@lib/utils';
 
 // Types
-import { DemoData } from "@root/src/types/types";
+import { PromptDemo } from "@root/src/types/types";
 
 const Caret = () => {
   return (
@@ -58,7 +58,7 @@ type PlaygroundProps = {
   autoScrollDisabled?: boolean;
   isDemoMode?: boolean;
   playing?: boolean;
-  demo?: DemoData,
+  demo?: PromptDemo,
   iDontKnowMessage?: string;
 };
 
