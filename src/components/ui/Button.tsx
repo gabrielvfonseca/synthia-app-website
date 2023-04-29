@@ -68,7 +68,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         className={cn(
           className,
-          'relative flex select-none flex-row items-center justify-center gap-3 whitespace-nowrap rounded-lg border font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 disabled:cursor-not-allowed',
+          'relative flex select-none flex-row items-center justify-center gap-3 whitespace-nowrap rounded-lg border font-semibold transition duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-orange disabled:cursor-not-allowed',
           {
             'border-[1px] border-solid border-orange/90 text-neutral-900 dark:text-neutral-300 bg-orange/10 hover:bg-orange/90 disabled:bg-neutral-900 disabled:text-neutral-500 hover:disabled:bg-neutral-900':
               variant === 'cta',

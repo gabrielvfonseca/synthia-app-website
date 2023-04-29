@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { 
   useEffect, 
@@ -15,8 +15,7 @@ import Link from 'next/link';
 import cn from 'classnames';
 
 // Components
-import { Header } from '@components/layouts/Header';
-import { Footer } from '@components/layouts/Footer';
+import LandingLayout from '@components/layouts/LandingLayout';
 
 import { Pattern } from '@components/ui/Pattern';
 import { Glow, GridGlow, TopGlow } from '@components/ui/Glow';
@@ -134,16 +133,16 @@ const Board: React.FC<BoardProps> = ({
       onMouseMove={handleMouseMove}
       style={
         {
-          "--dark-purple": "255 255 255",
-          "--light-purple": "238 86 34",
+          "--dark-orange": "255 255 255",
+          "--light-orange": "238 86 34",
 
           "--bg-color":
-            "linear-gradient(rgb(var(--dark-purple)), rgb(var(--dark-purple)))",
+            "linear-gradient(rgb(var(--dark-orange)), rgb(var(--dark-orange)))",
           "--border-color": `linear-gradient(145deg,
-            rgb(var(--light-purple)) 0%,
-            rgb(var(--light-purple) / 0.3) 33.33%,
-            rgb(var(--light-purple) / 0.14) 66.67%,
-            rgb(var(--light-purple) / 0.1) 100%)
+            rgb(var(--light-orange)) 0%,
+            rgb(var(--light-orange) / 0.3) 33.33%,
+            rgb(var(--light-orange) / 0.14) 66.67%,
+            rgb(var(--light-orange) / 0.1) 100%)
           `,
         } as React.CSSProperties
       }
@@ -207,7 +206,7 @@ const Card: React.FC<{
       transition={animation.whileInView.transition}
       whileInView={animation.whileInView.whileInView}
       className={cn(
-        "group relative w-full rounded-2xl",
+        "group relative w-full h-full rounded-2xl",
         "border border-black/20 dark:border-neutral-700 dark:hover:border-orange/40 bg-zinc-50 dark:bg-neutral-900",
         "bg-opacity-30 px-6 py-10",
         "shadow-md dark:shadow-lg",
@@ -216,7 +215,7 @@ const Card: React.FC<{
       onMouseMove={handleMouseMove}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none h-fit absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -290,36 +289,262 @@ export default function Page(): JSX.Element {
   }, [isInputVisible]);
 
   return (
-    <>
-      <Header />
-      <main>
-        <Pattern />
+    <LandingLayout>
+      <Pattern />
+      <div className='relative'>
+        <Glow />
 
-        <div className='relative'>
-          <Glow />
+        <motion.div 
+          initial={animation.fadeIn.initial}
+          animate={animation.fadeIn.animate}
+          exit={animation.fadeIn.exit}
+          transition={animation.fadeIn.transition}
+          className="px-10 sm:px-8 flex flex-col justify-center items-center min-h-screen"
+        >
+          <h1 className={cn(
+            "gradient-heading", "pb-4 px-4 sm:px-0 mt-28",
+            "min-w-fit max-w-sm sm:max-w-md lg:w-1/3", 
+            "text-5xl sm:text-6xl lg:text-7xl",
+            "leading-[54px] sm:leading-[60px] lg:leading-[78px]",
+            "text-center font-extrabold tracking-[-0.6px]", 
+          )}>
+            Supercharged by syntax AI - millions 
+            of answers at your fingertips!
+          </h1>
+          <p className={cn(
+            "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700 dark:text-neutral-300",
+          )}>
+            Synthia can help you with anything from finding information
+            to completing tasks, all through a simple chat interface.
+          </p>
 
           <motion.div 
             initial={animation.fadeIn.initial}
             animate={animation.fadeIn.animate}
             exit={animation.fadeIn.exit}
-            transition={animation.fadeIn.transition}
-            className="px-10 sm:px-8 flex flex-col justify-center items-center min-h-screen"
+            transition={{ 
+              duration: 0.18,
+              delay: 0.8,
+            }}
+            className="flex flex-row items-center justify-center gap-4 pt-8"
           >
-            <h1 className={cn(
-              "gradient-heading", "pb-4 px-4 sm:px-0 mt-28",
-              "min-w-fit max-w-sm sm:max-w-md lg:w-1/3", 
-              "text-5xl sm:text-6xl lg:text-7xl",
-              "leading-[54px] sm:leading-[60px] lg:leading-[78px]",
-              "text-center font-extrabold tracking-[-0.6px]", 
+            <Button
+              variant="cta"
+              buttonSize="lg"
+              href='/#early-access'
+            >
+              Request Access
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        <div className='relative'>
+          <GridGlow />
+
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-32 px-6 sm:px-28'>
+            <Card title='Research project'>
+              This is a research project that leverages large language models like RoBERTa developed by 
+              <Link href="https://gabfon.me" className='text-orange'>{" Gabriel"}</Link>, that pushes the boundaries of what's possible 
+              in the field of natural language processing and beyond!
+            </Card>
+
+            <Card title='Completly open-source'>
+              we are proud to say that our model is completely open-source, which means 
+              that anyone can access our code and make use of it for their own purposes. 
+            </Card>
+
+            <Card title='Fine-tuned to handle everything!'>
+              Our model is versatile, reliable, and accurate. It has been extensively 
+              tested and trained on 2.5TB of data, making it adaptable to new environments. 
+              It is ideal for processing large amounts of data or complex computations.  
+            </Card>
+
+            <Card title='A direct line to our API' badge='Soon!'>
+              We're creating a direct line connection API to let users easily use our 
+              model for their projects. It's an exciting new feature that will empower
+              users to unlock our technology's full potential!
+            </Card>
+          </div>
+        </div>
+
+        <div className='relative' id="playground">
+          <TopGlow />
+
+          <h2 className={cn(
+            "gradient-heading",
+            "mt-40 pb-4 px-4 md:px-28", 
+            "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
+          )}>
+            <Balancer>
+              This is just sneak peek of what we can do            
+            </Balancer>
+          </h2>
+
+        </div>
+
+        <div className="mt-10">
+          <div 
+            className={cn(
+              "relative bg-white dark:bg-night", 
+              "border-t border-t-black/20 dark:border-t-neutral-700/60",
+              "py-8 px-16 h-[500px] w-full z-20",
+              "rounded-t-2xl"
+          )}>
+            <Playground
+              onDark
+              isDemoMode
+              playing={autoplayPlayground}
+              demo={demoData}
+            />
+            <div
+              ref={playgroundAnchorRef}
+              className="pointer-events-none absolute right-0 bottom-32 h-2 w-2 opacity-0"
+            />
+          </div>
+        </div>
+        
+        <div className='px-6 sm:px-28'>
+          <h2 className={cn(
+            "gradient-heading", "mt-28 pb-4", 
+            "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
+          )}>
+            <Balancer>
+              Write Better, Faster, and More Confidently with this Features 
+            </Balancer>
+          </h2>
+        
+          <div className="relative mt-20 w-full overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <Board title='Why?'>
+              As GPT-4 models merge, we at Synthia have developed our own language 
+              model assistant using Facebook's RoBERTa. Synthia assists users in generating 
+              more accurate and grammatically correct text to improve their writing skills and 
+              optimize content for better communication. We are committed to providing top-notch 
+              service and will continue to improve our services in the future. Enjoy using Synthia!
+            </Board>
+
+            <motion.div 
+              initial={animation.whileInView.initial}
+              transition={animation.whileInView.transition}
+              whileInView={animation.whileInView.whileInView}
+              className="board" 
+              id="cloud-model"
+            >
+              <div className='space-y-5'>
+                <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                  <Icons.cloud className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
+                </div>
+                <h3>
+                  <Balancer>
+                    100% on the cloud
+                  </Balancer>
+                </h3>
+                <p>
+                  We designed our model to be 100% in the cloud. 
+                  All resources and computing power is pushed from our dedicated servers.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={animation.whileInView.initial}
+              transition={animation.whileInView.transition}
+              whileInView={animation.whileInView.whileInView}
+              className="board" 
+              id="cloud-model"
+            >                
+              <div className='space-y-5'>
+                <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                  <Icons.gauge className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
+                </div>
+                <h3>
+                  <Balancer>
+                    Speed and optimization using Python and Rust
+                  </Balancer>
+                </h3>
+                <p>
+                  We use Python along side with Rust, 
+                  optimizing speed and performance for 
+                  quick and precise results, even with 
+                  large amounts of text.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={animation.whileInView.initial}
+              transition={animation.whileInView.transition}
+              whileInView={animation.whileInView.whileInView}
+              className="board" 
+              id="cloud-model"
+            >                
+              <div className='space-y-5'>
+                <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                  <Icons.activity className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
+                </div>
+                <h3>
+                  <Balancer>
+                    RoBERTa-powered advanced natural language processing
+                  </Balancer>
+                </h3>
+                <p>
+                  Using RoBERTa-powered natural language processing and 
+                  personalized writing insights. Users can achieve 
+                  writing goals efficiently while retaining control 
+                  over the platform.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={animation.whileInView.initial}
+              transition={animation.whileInView.transition}
+              whileInView={animation.whileInView.whileInView}
+              className="board" 
+              id="cloud-model"
+            >                
+              <div className='space-y-5'>
+                <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
+                  <Icons.database className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
+                </div>
+                <h3>
+                  <Balancer>
+                    Your data is safe with us
+                  </Balancer>
+                </h3>
+                <p>
+                  We value privacy. 
+                  All conversational data is store securely on our servers only for model improvement.
+                </p>
+              </div>
+            </motion.div>
+          </div> 
+        </div>
+
+        <motion.div 
+          initial={animation.fadeIn.initial}
+          animate={animation.fadeIn.animate}
+          exit={animation.fadeIn.exit}
+          transition={animation.fadeIn.transition}
+          className='my-40 px-6 sm:px-8' 
+          id="early-access"
+        >
+          <div className="flex flex-col items-center">
+            <h2 className={cn(
+              "gradient-heading", "pb-4", 
+              "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
             )}>
-              Supercharged by syntax AI - millions 
-              of answers at your fingertips!
-            </h1>
+              <Balancer>
+                Request Early Access 
+              </Balancer>
+            </h2>
             <p className={cn(
               "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700 dark:text-neutral-300",
             )}>
-              Synthia can help you with anything from finding information
-              to completing tasks, all through a simple chat interface.
+              <Balancer>
+                Help us shape Synthia, get a sneak peek at our beta by 
+                joining our Early Access program today!
+              </Balancer>
             </p>
 
             <motion.div 
@@ -328,263 +553,33 @@ export default function Page(): JSX.Element {
               exit={animation.fadeIn.exit}
               transition={{ 
                 duration: 0.18,
-                delay: 0.8,
+                delay: 0.5,
               }}
-              className="flex flex-row items-center justify-center gap-4 pt-8"
+              className="mt-8 space-y-5"
             >
-              <Button
-                variant="cta"
-                buttonSize="lg"
-                href='/#early-access'
+              <Input 
+                type="text"
+                value={email.address}
+                onChange={(e: any) => setNewEmail({ ...email, address: e.target.value })}
+                inputSize="lg" 
+                variant="plain" 
+                className="py-2 px-3"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"
+                placeholder="Enter email address" 
+              />
+
+              <Button 
+                variant='orange' 
+                className='w-full'
+                onClick={handleButtonPress}
               >
-                Request Access
+                  <div>Sign me up</div>
               </Button>
             </motion.div>
-          </motion.div>
-
-          <div className='relative'>
-            <GridGlow />
-
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-32 px-6 sm:px-28'>
-              <Card title='Research project'>
-                This is a research project that leverages large language models like RoBERTa developed by 
-                <Link href="https://gabfon.me" className='text-orange'>{" Gabriel"}</Link>, that pushes the boundaries of what's possible 
-                in the field of natural language processing and beyond!
-              </Card>
-
-              <Card title='Completly open-source'>
-                we are proud to say that our model is completely open-source, which means 
-                that anyone can access our code and make use of it for their own purposes. 
-              </Card>
-
-              <Card title='Fine-tuned to handle everything!'>
-                Our model is versatile, reliable, and accurate. It has been extensively 
-                tested and trained on 2.5TB of data, making it adaptable to new environments. 
-                It is ideal for processing large amounts of data or complex computations.  
-              </Card>
-
-              <Card title='A direct line to our API' badge='Soon!'>
-                We're creating a direct line connection API to let users easily use our 
-                model for their projects. It's an exciting new feature that will empower
-                users to unlock our technology's full potential!
-              </Card>
-            </div>
           </div>
+        </motion.div>
 
-          <div className='relative' id="playground">
-            <TopGlow />
-
-            <h2 className={cn(
-              "gradient-heading",
-              "mt-40 pb-4 px-4 md:px-28", 
-              "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
-            )}>
-              <Balancer>
-                This is just sneak peek of what we can do            
-              </Balancer>
-            </h2>
-
-          </div>
-
-          <div className="mt-10">
-            <div 
-              className={cn(
-                "relative bg-white dark:bg-night", 
-                "border-t border-t-black/20 dark:border-t-neutral-700/60",
-                "py-8 px-20 h-[500px] w-full z-20", 
-            )}>
-              <Playground
-                onDark
-                isDemoMode
-                playing={autoplayPlayground}
-                demo={demoData}
-              />
-              <div
-                ref={playgroundAnchorRef}
-                className="pointer-events-none absolute right-0 bottom-32 h-2 w-2 opacity-0"
-              />
-            </div>
-          </div>
-          
-          <div className='px-6 sm:px-28'>
-            <h2 className={cn(
-              "gradient-heading", "mt-28 pb-4", 
-              "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
-            )}>
-              <Balancer>
-                Write Better, Faster, and More Confidently with this Features 
-              </Balancer>
-            </h2>
-          
-            <div className="relative mt-20 w-full overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-4">
-
-              <Board title='Why?'>
-                As GPT-4 models merge, we at Synthia have developed our own language 
-                model assistant using Facebook's RoBERTa. Synthia assists users in generating 
-                more accurate and grammatically correct text to improve their writing skills and 
-                optimize content for better communication. We are committed to providing top-notch 
-                service and will continue to improve our services in the future. Enjoy using Synthia!
-              </Board>
-
-              <motion.div 
-                initial={animation.whileInView.initial}
-                transition={animation.whileInView.transition}
-                whileInView={animation.whileInView.whileInView}
-                className="board" 
-                id="cloud-model"
-              >
-                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
-                    <Icons.cloud className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
-                  </div>
-                  <h3>
-                    <Balancer>
-                      100% on the cloud
-                    </Balancer>
-                  </h3>
-                  <p>
-                    We designed our model to be 100% in the cloud. 
-                    All resources and computing power is pushed from our dedicated servers.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                initial={animation.whileInView.initial}
-                transition={animation.whileInView.transition}
-                whileInView={animation.whileInView.whileInView}
-                className="board" 
-                id="cloud-model"
-              >                
-                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
-                    <Icons.gauge className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
-                  </div>
-                  <h3>
-                    <Balancer>
-                      Speed and optimization using Python and Rust
-                    </Balancer>
-                  </h3>
-                  <p>
-                    We use Python along side with Rust, 
-                    optimizing speed and performance for 
-                    quick and precise results, even with 
-                    large amounts of text.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                initial={animation.whileInView.initial}
-                transition={animation.whileInView.transition}
-                whileInView={animation.whileInView.whileInView}
-                className="board" 
-                id="cloud-model"
-              >                
-                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
-                    <Icons.activity className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
-                  </div>
-                  <h3>
-                    <Balancer>
-                      RoBERTa-powered advanced natural language processing
-                    </Balancer>
-                  </h3>
-                  <p>
-                    Using RoBERTa-powered natural language processing and 
-                    personalized writing insights. Users can achieve 
-                    writing goals efficiently while retaining control 
-                    over the platform.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                initial={animation.whileInView.initial}
-                transition={animation.whileInView.transition}
-                whileInView={animation.whileInView.whileInView}
-                className="board" 
-                id="cloud-model"
-              >                
-                <div className='space-y-5'>
-                  <div className='p-3 bg-platinium/40 dark:bg-neutral-700 rounded-xl w-fit h-fit'>
-                    <Icons.database className='w-6 h-6 text-neutral-800 dark:text-neutral-400' />
-                  </div>
-                  <h3>
-                    <Balancer>
-                      Your data is safe with us
-                    </Balancer>
-                  </h3>
-                  <p>
-                    We value privacy. 
-                    All conversational data is store securely on our servers only for model improvement.
-                  </p>
-                </div>
-              </motion.div>
-            </div> 
-          </div>
-
-          <motion.div 
-            initial={animation.fadeIn.initial}
-            animate={animation.fadeIn.animate}
-            exit={animation.fadeIn.exit}
-            transition={animation.fadeIn.transition}
-            className='my-40 px-6 sm:px-8' 
-            id="early-access"
-          >
-            <div className="flex flex-col items-center">
-              <h2 className={cn(
-                "gradient-heading", "pb-4", 
-                "text-center text-5xl font-bold leading-[44px] tracking-[-0.6px]", 
-              )}>
-                <Balancer>
-                  Request Early Access 
-                </Balancer>
-              </h2>
-              <p className={cn(
-                "mx-auto mt-4 font-sans font-normal max-w-md text-center text-lg text-neutral-700",
-              )}>
-                <Balancer>
-                  Help us shape Synthia, get a sneak peek at our beta by 
-                  joining our Early Access program today!
-                </Balancer>
-              </p>
-
-              <motion.div 
-                initial={animation.fadeIn.initial}
-                animate={animation.fadeIn.animate}
-                exit={animation.fadeIn.exit}
-                transition={{ 
-                  duration: 0.18,
-                  delay: 0.5,
-                }}
-                className="mt-8 space-y-5"
-              >
-                <Input 
-                  type="text"
-                  value={email.address}
-                  onChange={(e: any) => setNewEmail({ ...email, address: e.target.value })}
-                  inputSize="lg" 
-                  variant="plain" 
-                  className="py-2 px-3"
-                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"
-                  placeholder="Enter email address" 
-                />
-
-                <Button 
-                  variant='orange' 
-                  className='w-full'
-                  onClick={handleButtonPress}
-                >
-                    <div>Sign me up</div>
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-
-        </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </LandingLayout>
   );
 };

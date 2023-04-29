@@ -53,7 +53,7 @@ const navigationMenuTriggerStyle = cva(cn(
   "inline-flex items-center justify-center",
   "font-medium transition-colors rounded-lg",
   "hover:bg-stone-50/70 data-[state=open]:bg-stone-50/70 data-[active]:bg-stone-50/70", 
-  "dark:hover:bg-stone-600/70 dark:data-[state=open]:bg-stone-600/70 dark:data-[active]:bg-stone-600/70",
+  "dark:hover:bg-eerie dark:data-[state=open]:bg-eerie dark:data-[active]:bg-errie",
   "h-10 py-1 px-3 group w-max dark:text-gray-300",
 ))
 

@@ -9,6 +9,9 @@ import cn from "classnames";
 // Next
 import { Metadata } from 'next';
 
+// Themes
+import Provider from '@components/layouts/Providers';
+
 // Fonts
 import { GTWalsheimPro } from '@root/src/fonts/fonts';
 
@@ -70,9 +73,11 @@ export default function RootLayout({
       <html lang="en" className={cn(GTWalsheimPro.variable, "font-sans")}>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <body className="overflow-y-scroll">
+          <Provider attribute='class'>
             {children}
             <Toaster />
             <PushTopButton />
+          </Provider>
         </body>
     </html>
     )

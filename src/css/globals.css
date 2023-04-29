@@ -31,7 +31,7 @@ textarea {
 }
 
 .input-base {
-  @apply flex appearance-none rounded-md border dark:border-neutral-700 border-opacity-10 bg-transparent text-black/80 transition duration-200 placeholder:text-neutral-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-cinnabar selection:bg-neutral-800 selection:text-white/80;
+  @apply flex appearance-none rounded-md border dark:border-neutral-700 border-opacity-10 bg-transparent text-black/80 transition duration-200 placeholder:text-neutral-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-orange selection:bg-neutral-800 selection:text-white/80;
 }
 
 .gradient-heading {

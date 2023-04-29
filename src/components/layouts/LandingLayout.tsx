@@ -1,35 +1,46 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from "react";
 
 // Next
-import Link from 'next/link';
-
-// Components
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@components/ui/NavigationMenu";
+import Link from "next/link";
 
 // ClassNames
 import cn from "classnames";
 
 // Icons
-import { Icons } from "@icons/icons";
-import Button from '@components/ui/Button';
+import { Icons } from "@components/icons/icons";
 
+// Components
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
+} from "@components/ui/NavigationMenu";
+import Button from '@components/ui/Button';
+  
 // Lib
 import { useToast } from '@lib/hooks/use-toast';
 
 // Framer Motion
 import { AnimatePresence, motion } from 'framer-motion';
 
+// Theme
+import { useTheme } from 'next-themes';
+
 // Types
+export type NavModel = 'system' | 'light' | 'dark';
+
+export const modelTheme: Record<NavModel, any> = {
+  system: <Icons.laptop className="h-4 w-4 text-black" />,
+  light: <Icons.sun className="h-4 w-4 text-black" />,
+  dark: <Icons.moon className="h-4 w-4 text-black" />,
+};
+
 type Component = { title: string; description: string };
 type MobileComponent = { title: string; href: string, description: string };
 
@@ -147,8 +158,10 @@ export const Header: React.FC = () => {
                         <a
                           className={cn(
                             "flex h-full w-full select-none flex-col justify-end rounded-md",
-                            "bg-white/40 dark:bg-cinnabar/20 backdrop-blur-lg",
-                            "p-6 no-underline outline-none focus:shadow-md"
+                            "bg-orange/10 hover:bg-orange/20 backdrop-blur-lg",
+                            "border-solid border border-orange/50",
+                            "p-6 no-underline outline-none focus:shadow-md",
+                            "transition-colors duration-300"
                           )}
                           href="/"
                         >
@@ -205,7 +218,7 @@ export const Header: React.FC = () => {
                       })
                     }>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Documentation
+                    Docs
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -230,7 +243,7 @@ export const Header: React.FC = () => {
                 </Link>
               </>
             }
-            <Link href="https://github.com/gabrielvfonseca/synthia-landing-website" target='_blank'>
+            <Link href="https://github.com/gabrielvfonseca/syntax-ai-website" target='_blank'>
               <Icons.gitHub className='h-6 w-6 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
             </Link>
 
@@ -244,14 +257,21 @@ export const Header: React.FC = () => {
           <button 
             onClick={() => isOpen(!open)}
             className={cn(
-              'p-1 z-50', 'bg-transparent hover:bg-black hover:bg-opacity-10',
+              'p-1 z-50', 'group', 'bg-black/10 dark:bg-eerie/80 hover:bg-orange/10',
+              "border border-solid border-transparent hover:border-orange",
               'transition-colors duration-200 transform rounded-md'
             )}
           >
-            {
-              !open ? <Icons.menu className='h-7 w-7 text-night' />
-              : <Icons.close className='h-7 w-7 text-night' />
-            }
+            <AnimatePresence initial={false}>
+              {!open ? 
+                <motion.div animate={{rotate: !open ? 180 : 0}}>
+                  <Icons.menu className='h-7 w-7 text-night dark:text-white dark:group-hover:text-opacity-70 transition-colors' />
+                </motion.div> : 
+                <motion.div animate={{rotate: !open ? 360 : 0}}>
+                  <Icons.close className='h-7 w-7 text-night dark:text-white dark:group-hover:text-opacity-70 transition-colors' />
+                </motion.div>
+              }
+            </AnimatePresence>
           </button>
 
           <AnimatePresence>
@@ -291,7 +311,7 @@ export const Header: React.FC = () => {
                           className={cn(
                             'flex flex-row flex-grow',
                             'text-lg font-sans font-semibold',
-                            'text-black hover:text-orange transition-colors duration-150 transform'
+                            'text-black dark:text-white hover:text-orange transition-colors duration-150 transform'
                           )}
                         >
                           {item.title}
@@ -318,7 +338,7 @@ export const Header: React.FC = () => {
                                 origin: 1
                             }}
                             className={cn(
-                              'border-b border-b-solid border-b-black border-opacity-10'
+                              'border-b border-b-solid border-b-black/20 dark:border-b-neutral-700'
                         )} />
                       </div>
                     ))
@@ -326,7 +346,7 @@ export const Header: React.FC = () => {
 
                   <div className='pt-10 flex flex-row justify-between'>
                       <div className='flex flex-row gap-4 items-center'>
-                        <Link href="https://github.com/gabrielvfonseca/synthia-landing-website" target='_blank'>
+                        <Link href="https://github.com/gabrielvfonseca/syntax-ai-website" target='_blank'>
                           <Icons.gitHub className='h-7 w-7 text-night dark:text-platinium hover:text-orange/90 transition-colors' />
                         </Link>
 
@@ -365,6 +385,144 @@ export const Header: React.FC = () => {
 }
 
 
+export const Footer: React.FC = () => {
+    const { theme, setTheme } = useTheme();
+
+    const tabs = [
+      { id: "dark", label: <Icons.moon className="h-4 w-4" /> },
+      { id: "light", label: <Icons.sun className="h-4 w-4" /> },
+    ];
+  
+    const [activeTab, setActiveTab] = useState(theme || tabs[0].id);
+
+    return (
+      <motion.footer 
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1
+        }}
+        transition={{
+          duration: 0.4
+        }}
+        className={cn(
+          "relative bottom-0 left-0",
+          "px-6 pt-12 sm:py-12 sm:px-8",
+          "border-solid border-t-white"
+        )}
+      >
+        <div className="mx-auto w-full max-w-screen-xl p-4 lg:py-8">
+          <div className="md:flex md:justify-between">
+            <div className="mb-10 md:mb-0 space-y-7">
+              <Link href="https://flowbite.com/" className="flex items-center space-x-3">
+                  <Icons.logo className="text-black dark:text-white" />
+                  <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Synthia</span>
+              </Link>
+              <p className="dark:text-opacity-90 text-sm font-medium text-black dark:text-gray-300">
+                Made with ❤️ (and much ☕) by 
+                <Link href="https://gabfon.me/" className="hover:text-orange transition-colors">
+                  {" Gabriel"}
+                </Link>.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 sm:gap-8 sm:grid-cols-3">
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase dark:text-neutral-200">Resources</h2>
+                <ul className="text-black/90 dark:text-gray-400 font-medium">
+                    <li>
+                        <Link href="/docs" className="hover:text-orange transition-colors">Docs</Link>
+                    </li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase dark:text-neutral-200">Legal</h2>
+                <ul className="text-black/90 dark:text-gray-400 font-medium">
+                    <li className="mb-4">
+                        <Link href="/privacy" className="hover:text-orange transition-colors">Privacy Policy</Link>
+                    </li>
+                    <li>
+                        <Link href="/terms" className="hover:text-orange transition-colors">Terms &amp; Conditions</Link>
+                    </li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase dark:text-neutral-200">Follow</h2>
+                <ul className="text-black/90 dark:text-gray-400 font-medium">
+                    <li className="mb-4">
+                        <Link href="https://github.com/gabrielvfonseca/syntax-ai-website" target="_blank" className="hover:text-orange transition-colors">GitHub</Link>
+                    </li>
+                    <li>
+                        <Link href="https://twitter.com/gabfon_" target="_blank" className="hover:text-orange transition-colors">Twitter</Link>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <hr className="my-10 border-black/20 dark:border-neutral-700 sm:mx-auto lg:my-8" />
+
+          <div className="sm:flex sm:items-center sm:justify-between">
+            <span className="text-sm text-gray-800 sm:text-center dark:text-gray-400">
+              &#169; 2023
+              <Link 
+                href="/" 
+                className="hover:text-orange transition-colors"
+              >{" Synthia"}</Link>. All Rights Reserved.
+            </span>
+            
+            <div className="flex space-x-1 p-1 rounded-full border border-black/20 dark:border-neutral-700/60">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveTab(tab.id)
+                    setTheme(tab.id)
+                    console.log(activeTab, tab.id)
+                  }}
+                  className={`${
+                    activeTab === tab.id ? "" : "hover:text-orange text-black dark:text-white"
+                  } relative rounded-full px-3 py-1.5 text-sm font-medium text-eerie dark:text-white outline-eerie hover:outline-night dark:hover:outline-eerie transition focus-visible:outline-2`}
+                  style={{
+                    WebkitTapHighlightColor: "transparent",
+                  }}
+                >
+                  {activeTab === tab.id && (
+                    <motion.span
+                      layoutId="bubble"
+                      className="absolute inset-0 z-10 bg-white dark:bg-eerie mix-blend-difference"
+                      style={{ borderRadius: 9999 }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.footer>
+    )
+}
+
+
+const LandingLayout: React.FC<{
+    children: ReactNode
+}> = ({ children }) => {
+    return (
+        <>
+            <Header />
+                <main>
+                    {children}
+                </main>
+            <Footer />
+        </>
+    )
+}
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
@@ -390,4 +548,7 @@ const ListItem = React.forwardRef<
     </li>
   )
 })
-ListItem.displayName = "ListItem"
+ListItem.displayName = "ListItem";
+
+
+export default LandingLayout;
