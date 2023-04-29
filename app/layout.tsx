@@ -16,7 +16,7 @@ import Provider from '@components/layouts/Providers';
 import { GTWalsheimPro } from '@root/src/fonts/fonts';
 
 // Components
-import { Toaster } from "./page";
+import { Toaster } from "@components/ui/Toaster";
 import PushTopButton from '@components/ui/PushTop';
 
 // Metadata

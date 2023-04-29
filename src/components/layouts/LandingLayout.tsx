@@ -124,7 +124,7 @@ export const Header: React.FC = () => {
     <header
       className={cn(
         "w-full z-50 fixed top-0 transition",
-        hasScrolled && 'backdrop-blur-2xl shadow-sm border-b border-b-solid border-b-black border-opacity-10 transition-all duration-300'
+        hasScrolled && 'backdrop-blur-2xl shadow-sm border-b border-b-solid border-b-black border-opacity-20 dark:dark:border-b-neutral-800/80 transition-all duration-300'
     )}>
       <div className="flex flex-row justify-between px-8 py-5">
         
