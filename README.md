@@ -11,8 +11,8 @@
 
 <p align="center">
   <a href="https://try-synthia.com/"><strong>Website</strong></a> ·
-  <a href="https://try-synthia.com/changelog"><strong>Changelog</strong></a> ·
-  <a href="https://try-synthia.com/use-cases"><strong>Use Cases</strong></a> 
+  <a href="https://try-synthia.com/login"><strong>Login</strong></a> ·
+  <a href="https://try-synthia.com/chat"><strong>Chat</strong></a> 
 </p>
 <br/>
 

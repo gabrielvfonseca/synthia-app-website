@@ -1,20 +1,9 @@
-"use client";
-
 import React from "react";
 
 // Components
 import Layout from "@components/layouts/Layout";
-import Input from "@components/ui/Input";
+import Prompt from "@components/ui/Prompt";
 import { Card } from "@components/ui/Card";
-
-// Framer Motion
-import { motion } from "framer-motion";
-
-export const InputPrompt: React.FC = () => (
-    <motion.div className="absolute bottom-8 right-0 px-8 flex flex-col w-full">
-        <Input className="w-full bg-smoke dark:bg-black shadow-lg shadow-gray-500/10" placeholder="Send a message." />
-    </motion.div>
-)
 
 export default function Page() {
     return (
@@ -41,7 +30,7 @@ export default function Page() {
                     </div>
                 </div>
             </section>
-            <InputPrompt />
+            <Prompt />
       </Layout>
     )
   };

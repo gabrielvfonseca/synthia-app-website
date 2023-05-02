@@ -1,29 +1,24 @@
 "use client";
 
+import cn from 'classnames';
+
 import {
   FC,
   ReactNode,
+  SyntheticEvent,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-
-import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-// ClassNames
-import cn from 'classnames';
-
-// Lib
 import { timeout } from '@lib/utils';
-
-// Types
-import { PromptDemo } from "@root/src/types/types";
 
 const Caret = () => {
   return (
-    <i className="caret animate-caret inline-block h-[15px] w-[8px] translate-y-[2px] translate-x-[2px] transform rounded-[1px] bg-cinnabar shadow-[0_0px_3px_0px_rgba(248,64,38,0.9)]" />
+    <i className="caret animate-caret inline-block h-[15px] w-[8px] translate-y-[2px] translate-x-[2px] transform rounded-[1px] bg-fuchsia-500 shadow-[0_0px_3px_0px_rgba(217,70,219,0.9)]" />
   );
 };
 
@@ -55,24 +50,40 @@ const WithCaret: FC<WithCaretProps> = ({ Component, children, ...rest }) => {
 };
 
 type PlaygroundProps = {
+  projectKey?: string;
+  forceUseProdAPI?: boolean;
   didCompleteFirstQuery?: () => void;
   onDark?: boolean;
   autoScrollDisabled?: boolean;
   isDemoMode?: boolean;
   playing?: boolean;
-  demo?: PromptDemo,
+  demoPrompt?: string;
+  demoResponse?: string;
+  demoReferences?: string[];
   iDontKnowMessage?: string;
+  placeholder?: string;
+  inputClassName?: string;
 };
 
+// The playground is used in three scenarios:
+// - In demo mode for the landing page - it's not referring to any project
+// - In the dashboard, to try out a model. It's using the current active project
+// - In the docs, where it's referring to an external docs project on Markprompt
 export const Playground: FC<PlaygroundProps> = ({
+  projectKey,
+  forceUseProdAPI,
   didCompleteFirstQuery,
   onDark,
   autoScrollDisabled,
   isDemoMode,
   playing,
-  demo,
+  demoPrompt,
+  demoResponse,
+  demoReferences,
+  placeholder,
+  inputClassName,
 }) => {
-  const [prompt, setPrompt] = useState<string | undefined>(undefined);
+  const [prompt, setPrompt] = useState<string | undefined>('');
   const [answer, setAnswer] = useState('');
   const [references, setReferences] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -83,17 +94,11 @@ export const Playground: FC<PlaygroundProps> = ({
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!playing || !demo) {
+    if (!playing || !demoResponse || !demoPrompt) {
       return;
     }
 
     timeoutRef.current = setTimeout(async () => {
-      let index = Math.floor(Math.random() * demo.length);
-
-      let demoPrompt = demo[index].prompt;
-      let demoResponse = demo[index].res;
-      let demoReferences = demo[index].references;
-
       inputRef.current?.focus();
       const promptChunks = demoPrompt.split('');
       await timeout(500);
@@ -120,7 +125,7 @@ export const Playground: FC<PlaygroundProps> = ({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [playing, demo]);
+  }, [playing, demoResponse, demoPrompt, demoReferences]);
 
   const setAnswerAnimated = useCallback(async (answer: string) => {
     const responseChunks = answer.split(' ');
@@ -129,6 +134,32 @@ export const Playground: FC<PlaygroundProps> = ({
       await timeout(Math.random() * 10 + 70);
     }
   }, []);
+
+  const submitPrompt = useCallback(
+    async (e: SyntheticEvent<EventTarget>) => {
+      e.preventDefault();
+
+      if (!prompt || isDemoMode) {
+        return;
+      }
+
+      if (!projectKey) {
+        return;
+      }
+
+      setAnswer('');
+      setReferences([]);
+      setLoading(true);
+      setLoading(false);
+    },
+    [
+      prompt,
+      isDemoMode,
+      projectKey,
+      forceUseProdAPI,
+      setAnswerAnimated,
+    ],
+  );
 
   useEffect(() => {
     if (
@@ -155,17 +186,17 @@ export const Playground: FC<PlaygroundProps> = ({
 
   return (
     <div className="relative flex h-full flex-col">
-      <div className="relative h-12 border-b border-black border-opacity-10">
-        <form>
+      <div className="relative h-12 border-b border-neutral-900">
+        <form onSubmit={submitPrompt}>
           <input
             ref={inputRef}
             value={prompt || ''}
             type="text"
-            disabled
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Try asking me anything..."
+            placeholder={placeholder || 'Ask me anything...'}
             className={cn(
-              'w-full appearance-none rounded-md border-0 bg-transparent px-0 pt-1 pb-2 text-black/90 dark:text-white outline-none transition duration-500 placeholder:text-neutral-900 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-0',
+              inputClassName,
+              'w-full appearance-none rounded-md border-0 bg-transparent px-0 pt-1 pb-2 text-neutral-300 outline-none transition duration-500 placeholder:text-neutral-500 focus:outline-none focus:ring-0',
               {
                 'pointer-events-none': isDemoMode && playing,
               },
@@ -221,14 +252,14 @@ export const Playground: FC<PlaygroundProps> = ({
           </ReactMarkdown>
         </div>
         {answer.length > 0 && references.length > 0 && (
-          <div className="mt-8 border-t border-black border-opacity-10 pt-4 text-sm text-neutral-500">
+          <div className="mt-8 border-t border-neutral-900 pt-4 text-sm text-neutral-500">
             <div className="animate-slide-up">
-              Summary generated based on the following sources:
+              Summary generated from the following sources:
               <div className="mt-4 flex w-full flex-row flex-wrap items-center gap-2">
                 {references.map((r) => (
                   <div
                     key={`reference-${r}`}
-                    className="cursor-default rounded-md border border-orange px-2 py-1 text-sm font-medium text-eerie dark:text-neutral-500 hover:bg-orange/50 hover:border-cinnabar hover:text-opacity-90 dark:hover:text-zinc-100 duration-150 transition-colors"
+                    className="cursor-pointer rounded-md border border-neutral-900 bg-neutral-1100 px-2 py-1 text-sm font-medium text-neutral-300 transition hover:border-neutral-800 hover:text-neutral-200"
                   >
                     {r}
                   </div>
