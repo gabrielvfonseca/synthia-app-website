@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { Children, ReactNode } from 'react';
 
 // Css
 import '@css/globals.css';
@@ -15,14 +15,10 @@ import Provider from '@components/layouts/Providers';
 // Fonts
 import { GTWalsheimPro } from '@root/src/fonts/fonts';
 
-// Components
-import { Toaster } from "@components/ui/Toaster";
-import PushTopButton from '@components/ui/PushTop';
-
 // Metadata
 export const metadata: Metadata = {
     title: {
-      default: 'Synthia | Try our NLP model',
+      default: 'Chat | Synthia',
       template: '%s | Synthia',
     },
     description: 'A platform to try our synthax ai model powered by RoBERTa',
@@ -70,13 +66,10 @@ export default function RootLayout({
   children: ReactNode;
 }) {
     return (
-      <html lang="en" className={cn(GTWalsheimPro.variable, "font-sans")}>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <body className="overflow-y-scroll">
+      <html lang="en" className={GTWalsheimPro.variable}>
+        <body className='overflow-y-scroll overscroll-x-none'>
           <Provider attribute='class'>
-            {children}
-            <Toaster />
-            <PushTopButton />
+              {children}
           </Provider>
         </body>
     </html>

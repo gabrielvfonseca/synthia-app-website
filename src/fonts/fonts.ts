@@ -6,62 +6,62 @@ export const GTWalsheimPro = localFont({
   variable: '--font-sans',
   src: [
     {
-      path: './GTWalsheimPro-Regular.ttf',
+      path: './var/GTWalsheimPro-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-Black.ttf',
+      path: './var/GTWalsheimPro-Black.ttf',
       weight: '900',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-BlackOblique.ttf',
+      path: './var/GTWalsheimPro-BlackOblique.ttf',
       weight: '900',
       style: 'italic',
     },
     {
-      path: './GTWalsheimPro-Bold.ttf',
+      path: './var/GTWalsheimPro-Bold.ttf',
       weight: 'bold',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-BoldOblique.ttf',
+      path: './var/GTWalsheimPro-BoldOblique.ttf',
       weight: 'bold',
       style: 'italic',
     },
     {
-      path: './GTWalsheimPro-Light.ttf',
+      path: './var/GTWalsheimPro-Light.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-LightOblique.ttf',
+      path: './var/GTWalsheimPro-LightOblique.ttf',
       weight: '300',
       style: 'italic',
     },
     {
-      path: './GTWalsheimPro-Medium.ttf',
+      path: './var/GTWalsheimPro-Medium.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-MediumOblique.ttf',
+      path: './var/GTWalsheimPro-MediumOblique.ttf',
       weight: '600',
       style: 'italic',
     },
     {
-      path: './GTWalsheimPro-RegularOblique.ttf',
+      path: './var/GTWalsheimPro-RegularOblique.ttf',
       weight: '500',
       style: 'italic',
     },
     {
-      path: './GTWalsheimPro-UltraBold.ttf',
+      path: './var/GTWalsheimPro-UltraBold.ttf',
       weight: '800',
       style: 'normal',
     },
     {
-      path: './GTWalsheimPro-UltraBoldOblique.ttf',
+      path: './var/GTWalsheimPro-UltraBoldOblique.ttf',
       weight: '800',
       style: 'italic',
     }

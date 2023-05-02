@@ -1,52 +1,69 @@
-import {
-    X,
-    Activity,
-    Cloud,
-    Star,
-    Grid,
-    Gauge,
-    ArrowUpRight,
-    ArrowUp,
-    ChevronDown,
-    Check,
-    Database,
-    Laptop2,
-    Clipboard,
-    Moon,
-    Sun,
-    LucideProps,
-    type Icon as LucideIcon,
-  } from "lucide-react";
-  
-  export type Icon = LucideIcon;
-  
-  export const Icons = {
-    menu: (props: LucideProps) => (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24" {...props}>
-        <path xmlns="http://www.w3.org/2000/svg" d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM4 17C4 16.4477 4.44772 16 5 16H19C19.5523 16 20 16.4477 20 17C20 17.5523 19.5523 18 19 18H5C4.44772 18 4 17.5523 4 17Z" fill="currentColor"></path>
-      </svg>
-    ),
-    close: X,
-    check: Check,
-    activity: Activity,
-    laptop: Laptop2,
-    clipboard: Clipboard,
-    moon: Moon,
-    sun: Sun,
-    gauge: Gauge,
-    chevronDown: ChevronDown,
-    star: Star,
-    grid: Grid,
-    database: Database,
-    cloud: Cloud,
-    arrowUp: ArrowUp,
-    arrowUpRight: ArrowUpRight,
-    logo: (props: LucideProps) => (
+import { 
+  Cross1Icon, 
+  HamburgerMenuIcon, 
+  CheckIcon, 
+  LightningBoltIcon, 
+  LaptopIcon, 
+  ClipboardIcon,
+  MoonIcon,
+  SunIcon,
+  LayersIcon,
+  HomeIcon,
+  CircleIcon,
+  ChevronDownIcon,
+  StarIcon,
+  KeyboardIcon,
+  ChevronRightIcon,
+  GridIcon,
+  LockClosedIcon,
+  ArrowRightIcon,
+  FileIcon,
+  Pencil2Icon,
+  RocketIcon,
+  PlusIcon,
+  PersonIcon,
+  ExitIcon,
+  GearIcon,
+  ArrowUpIcon,
+  ArrowTopRightIcon,
+  Pencil1Icon,
+} from "@radix-ui/react-icons";
+    
+export const Icons = {
+    menu: HamburgerMenuIcon,
+    close: Cross1Icon,
+    check: CheckIcon,
+    activity: LayersIcon,
+    laptop: LaptopIcon,
+    home: HomeIcon,
+    plus: PlusIcon,
+    gear: GearIcon,
+    keyBoard: KeyboardIcon,
+    pencil: Pencil1Icon,
+    clipboard: ClipboardIcon,
+    chevronRight: ChevronRightIcon,
+    circle: CircleIcon,
+    pencil2: Pencil2Icon,
+    moon: MoonIcon,
+    sun: SunIcon,
+    closedLock: LockClosedIcon,
+    lightningBolt: LightningBoltIcon,
+    chevronDown: ChevronDownIcon,
+    arrowRight: ArrowRightIcon,
+    star: StarIcon,
+    user: PersonIcon,
+    exit: ExitIcon,
+    grid: GridIcon,
+    file: FileIcon,
+    cloud: RocketIcon,
+    arrowUp: ArrowUpIcon,
+    arrowUpRight: ArrowTopRightIcon,
+    logo: (props: any) => (
       <svg xmlns="http://www.w3.org/2000/svg" width="36.72" height="31.06" viewBox="0 0 36.72 31.06" {...props}>
         <path fill="currentColor" d="M210.96,15.53,195.43,0,192.6,2.83,189.77,0,174.24,15.53l15.53,15.53,2.83-2.83,2.83,2.83Zm-25.4,0,7.04-7.04,7.04,7.04-7.04,7.04Z" transform="translate(-174.24)"/>
       </svg>
     ),
-    logoLarge: (props: LucideProps) => (
+    logoLarge: (props: any) => (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.405 12.583" {...props}>
         <g transform="translate(0.04)">
           <path fill="currentColor" d="M2.317,43.833a.376.376,0,0,0-.086-.253A.68.68,0,0,0,2,43.414a1.949,1.949,0,0,0-.33-.117c-.125-.033-.253-.066-.39-.1a4.719,4.719,0,0,1-.5-.162,1.524,1.524,0,0,1-.419-.24,1.079,1.079,0,0,1-.288-.374,1.278,1.278,0,0,1-.106-.553,1.587,1.587,0,0,1,.143-.7,1.372,1.372,0,0,1,.39-.488,1.664,1.664,0,0,1,.57-.288,2.471,2.471,0,0,1,.687-.094,4.563,4.563,0,0,1,.829.072,4.375,4.375,0,0,1,.7.186v.958c-.109-.036-.224-.07-.345-.1s-.243-.058-.367-.082-.247-.042-.37-.057a2.951,2.951,0,0,0-.348-.023,1.347,1.347,0,0,0-.353.04.72.72,0,0,0-.233.106.4.4,0,0,0-.129.154.432.432,0,0,0-.04.182A.409.409,0,0,0,1.191,42a.619.619,0,0,0,.24.168,2.238,2.238,0,0,0,.322.106l.328.082c.166.04.33.088.5.143a1.549,1.549,0,0,1,.447.236,1.171,1.171,0,0,1,.325.393,1.305,1.305,0,0,1,.126.613,1.55,1.55,0,0,1-.154.71,1.394,1.394,0,0,1-.43.5,1.864,1.864,0,0,1-.661.3,3.441,3.441,0,0,1-.846.1,4.252,4.252,0,0,1-.821-.072,2.735,2.735,0,0,1-.6-.182v-.949a3.792,3.792,0,0,0,.715.2,3.932,3.932,0,0,0,.61.052,2.451,2.451,0,0,0,.407-.032,1.128,1.128,0,0,0,.325-.1.6.6,0,0,0,.216-.176.417.417,0,0,0,.08-.256Z" transform="translate(0 -34.954)"/>
@@ -60,7 +77,12 @@ import {
         </g>
       </svg>
     ),
-    gitHub: (props: LucideProps) => (
+    FiledCircle: (props: any) => (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
+        <circle cx="10" cy="10" r="10" fill="currentColor"/>
+      </svg>
+    ),
+    gitHub: (props: any) => (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path 
           fill="currentColor" 
@@ -68,7 +90,7 @@ import {
         />
       </svg>
     ),
-    twitter: (props: LucideProps) => (
+    twitter: (props: any) => (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path 
           fill="currentColor" 

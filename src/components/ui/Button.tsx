@@ -84,6 +84,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'px-4 py-2 text-sm': size === 'base',
             'px-3 py-1.5 text-sm': size === 'sm',
             'px-4 py-2 text-base': size === 'lg',
+            'px-3 py-2 text-base': size === 'md',
           },
         )}
         {...(href ? { href } : {})}

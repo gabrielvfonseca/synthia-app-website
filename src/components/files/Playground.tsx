@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FC,
   ReactNode,
@@ -226,7 +228,7 @@ export const Playground: FC<PlaygroundProps> = ({
                 {references.map((r) => (
                   <div
                     key={`reference-${r}`}
-                    className="cursor-default rounded-md border border-orange px-2 py-1 text-sm font-medium text-eerie dark:text-neutral-500 hover:bg-orange/50 hover:border-cinnabar hover:text-opacity-90 duration-150 transition-colors"
+                    className="cursor-default rounded-md border border-orange px-2 py-1 text-sm font-medium text-eerie dark:text-neutral-500 hover:bg-orange/50 hover:border-cinnabar hover:text-opacity-90 dark:hover:text-zinc-100 duration-150 transition-colors"
                   >
                     {r}
                   </div>

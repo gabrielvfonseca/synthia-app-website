@@ -36,7 +36,7 @@ textarea {
 
 .gradient-heading {
   -webkit-text-fill-color: transparent;
-  @apply bg-gradient-to-tr font-bold font-sans text-center from-night to-neutral-900 dark:from-indigo-200 dark:to-[#ccceff] bg-clip-text pb-4
+  @apply bg-gradient-to-tr font-bold font-sans from-night to-neutral-900 dark:from-indigo-200 dark:to-[#ccceff] bg-clip-text pb-4
 }
 
 .shadow-box {
@@ -599,7 +599,7 @@ textarea {
 	justify-content: flex-start;
   cursor: pointer;
   box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.1);
-  @apply z-30 w-full h-full rounded-2xl border-black transition-colors duration-200 ease-in-out dark:border-white border-opacity-10 py-7 px-8 border-solid border backdrop-blur-lg bg-platinium/10 dark:bg-white
+  @apply z-30 w-full h-full rounded-2xl border-black transition-colors duration-200 ease-in-out dark:border-white border-opacity-10 py-6 border-solid border backdrop-blur-lg bg-platinium/10 dark:bg-white
 }
 
 .card:hover {

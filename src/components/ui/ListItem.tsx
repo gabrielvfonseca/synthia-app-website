@@ -10,11 +10,15 @@ export const ListItem = ({
   size = 'base',
   variant,
   children,
+  number,
 }: {
   size?: 'sm' | 'base';
-  variant?: 'discreet';
+  variant?: 'discreet' | 'numeric' | 'checked';
   children: ReactNode;
+  number?: number,
 }) => {
+  const cva = "h-3 w-3 text-neutral-500";
+
   return (
     <li
       className={cn('flex w-full items-center', {
@@ -23,12 +27,19 @@ export const ListItem = ({
       })}
     >
       {variant === 'discreet' && (
-        <Icons.check className="h-3 w-3 text-neutral-500" />
+        <span className="h-2 w-2 flex-none rounded-full bg-primary-700/50 p-[3px]">
+          <Icons.FiledCircle className={cva} />
+        </span>
       )}
-      {variant !== 'discreet' && (
-        <div className="h-4 w-4 flex-none rounded-full bg-primary-700/50 p-[3px]">
-          {/*<CheckIcon className="h-full w-full text-primary-400" />*/}
-        </div>
+      {variant === 'checked' && (
+        <span className="h-4 w-4 flex-none rounded-full bg-primary-700/50 p-[3px]">
+          <Icons.check className={cva} />
+        </span>
+      )}
+      {variant === 'numeric' && (
+        <span className="text-sm flex-none p-[8px]">
+          {number}
+        </span>
       )}
       <p
         className={cn('text-neutral-400', {

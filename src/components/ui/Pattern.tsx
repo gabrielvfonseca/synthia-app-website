@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 
-export const Pattern = () => (
+export const Pattern = ({...props}) => (
   <motion.div 
     initial={{
       opacity: 0
@@ -14,8 +14,10 @@ export const Pattern = () => (
       duration: 0.4,
       delay: 0.1
     }}
-    className="opacity-70 absolute left-1/2 top-0 ml-[-15rem] h-[30rem] w-[80rem] dark:[mask-image:linear-gradient(white,transparent)]">
-    <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-primary-500/50 dark:to-highlight-200/20 dark:opacity-100">
+    className="absolute left-1/2 top-0 ml-[-15rem] h-[30rem] w-[80rem] dark:[mask-image:linear-gradient(white,transparent)]"
+    {...props}
+  >
+    <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-primary-500/50 dark:to-highlight-200/20 dark:opacity-40">
       <div style={{ 
         width: "100%", 
         height: "100%", 

@@ -25,6 +25,8 @@ module.exports = {
           "cinnabar": "#F84026",
           "platinium": "#DADDE0",
           "eerie": "#1D1E1F",
+          "smoke": "#F3F3F3",
+          "matter": "#0F0F0F",
           "night": "#0C0C0C",
           "champagne": "#E9D9CF",
           "isabelline": "#F2EEEB",

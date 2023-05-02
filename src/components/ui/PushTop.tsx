@@ -72,7 +72,7 @@ export default function PushTop () {
             {
               showGoTop && <motion.button
                 className={cn(
-                    'fixed bottom-6 right-10 z-40',
+                    'fixed bottom-6 right-6 md:right-8 z-40',
                     'cursor-pointer text-center',
                     'p-2.5', 'text-white',
                     'bg-eerie hover:bg-night dark:hover:bg-neutral-800',

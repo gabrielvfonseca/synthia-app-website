@@ -1,7 +1,9 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { ThemeProvider } from 'next-themes'
+
+// Theme
+import { ThemeProvider } from 'next-themes';
 
 const Provider: React.FC<{
     children: ReactNode,
